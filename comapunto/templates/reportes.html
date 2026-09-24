@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Reportes - LA COMA</title>
+</head>
+<body class="reportes-page">
+{% include 'navbar.html' %}
+
+<div class="container py-5 reportes-container">
+    <h1 class="reportes-title mb-4">Reportes recibidos</h1>
+    {% if reportes %}
+        <div class="reportes-feed">
+            {% for reporte in reportes %}
+                <article class="reporte-message">
+                    <header class="reporte-message-header">
+                        <div>
+                            <strong>{{ reporte[2] or 'Usuario no identificado' }}</strong>
+                            <span>{{ reporte[3] or 'Correo no disponible' }}</span>
+                        </div>
+                        <span class="reporte-id">#{{ reporte[0] }}</span>
+                    </header>
+                    <div class="reporte-message-body">
+                        <h2>{{ reporte[4] }}</h2>
+                        <p>{{ reporte[5] }}</p>
+                    </div>
+                    <footer class="reporte-message-footer">
+                        <div>
+                            <span>Reporte recibido</span>
+                            <time>{{ reporte[6] }}</time>
+                        </div>
+                        {% if reporte[1] %}
+                            <details class="reporte-reply">
+                                <summary>Responder</summary>
+                                <form method="post" action="{{ url_for('responder_reporte', reporte_id=reporte[0]) }}">
+                                    <textarea name="respuesta" rows="3" placeholder="Escribe la respuesta para este usuario" required></textarea>
+                                    <button type="submit">Enviar respuesta</button>
+                                </form>
+                            </details>
+                        {% else %}
+                            <small>Reporte sin cuenta asociada</small>
+                        {% endif %}
+                    </footer>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info alert-dismissible fade show auto-dismiss-alert">
+            No hay reportes registrados aún.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    {% endif %}
+</div>
+
+{% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <title>{{ juego[2] }} - Foro</title>
+</head>
+<body class="game-forum game-theme-{{ juego[1] }}" style="--forum-image: url('{{ url_for('static', filename=juego[4]) }}');">
+{% include 'navbar.html' %}
+
+{% if trailer_embed_url %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="{{ trailer_embed_url }}?autoplay=1&mute=1&loop=1&playlist={{ trailer_embed_url.split('/')[-1] }}&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de {{ juego[2] }}"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] in ['minecraft', 'minecraft-bedrock'] %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/7A5YWn33eps?autoplay=1&mute=1&loop=1&playlist=7A5YWn33eps&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de {{ juego[2] }}"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'brawl-stars' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/CaryjOdYFa0?autoplay=1&mute=1&loop=1&playlist=CaryjOdYFa0&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Brawl Stars"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'clash-royale' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/0Cj86Q_I7zU?autoplay=1&mute=1&loop=1&playlist=0Cj86Q_I7zU&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Clash Royale"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'csgo' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/1nkO4N7P-Ys?autoplay=1&mute=1&loop=1&playlist=1nkO4N7P-Ys&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de CS:GO"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'fortnite' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/bE_bTUw7DOY?autoplay=1&mute=1&loop=1&playlist=bE_bTUw7DOY&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Fortnite"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'free-fire' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/oq2Rz2I11l0?autoplay=1&mute=1&loop=1&playlist=oq2Rz2I11l0&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Free Fire"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'geometry-dash' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/gLlwslqKvQc?autoplay=1&mute=1&loop=1&playlist=gLlwslqKvQc&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Geometry Dash"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'rocket-league' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/6rtc18Nicow?autoplay=1&mute=1&loop=1&playlist=6rtc18Nicow&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Rocket League"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'subway-surfers' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/fGy-x3H-nxU?autoplay=1&mute=1&loop=1&playlist=fGy-x3H-nxU&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Subway Surfers"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% elif juego[1] == 'valorant' %}
+<div class="forum-video-background" aria-hidden="true">
+  <iframe
+    src="https://www.youtube.com/embed/XfuMEmcz3k0?autoplay=1&mute=1&loop=1&playlist=XfuMEmcz3k0&controls=0&rel=0&playsinline=1"
+    title="Fondo de video de Valorant"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    tabindex="-1"></iframe>
+</div>
+{% endif %}
+
+<div class="forum-code-rain" aria-hidden="true">
+  <span style="--code-left: 3%; --code-delay: 0.2s;">01</span>
+  <span style="--code-left: 9%; --code-delay: 1.6s;">X7</span>
+  <span style="--code-left: 16%; --code-delay: 0.8s;">{&gt;}</span>
+  <span style="--code-left: 23%; --code-delay: 2.4s;">101</span>
+  <span style="--code-left: 30%; --code-delay: 1.1s;">$1</span>
+  <span style="--code-left: 37%; --code-delay: 3s;">&lt;/&gt;</span>
+  <span style="--code-left: 44%; --code-delay: 0.5s;">011</span>
+  <span style="--code-left: 51%; --code-delay: 2s;">NX</span>
+  <span style="--code-left: 58%; --code-delay: 1.4s;">010</span>
+  <span style="--code-left: 65%; --code-delay: 3.4s;">&gt;_</span>
+  <span style="--code-left: 72%; --code-delay: 0.7s;">1F</span>
+  <span style="--code-left: 79%; --code-delay: 2.8s;">101</span>
+  <span style="--code-left: 86%; --code-delay: 1.8s;">{}</span>
+  <span style="--code-left: 93%; --code-delay: 3.8s;">0X</span>
+</div>
+
+<section class="chat-forum-section">
+  <div class="chat-forum-container">
+    <div class="text-center mb-4">
+      {% if juego[4] %}
+      <img src="{{ url_for('static', filename=juego[4]) }}" alt="{{ juego[2] }}" class="img-fluid rounded-4 shadow" style="max-height: 220px; object-fit: cover; width: 100%; max-width: 360px;">
+      {% endif %}
+      <h1 class="usuarios-titulo edit-user-title mt-3">FORO {{ juego[2] }}</h1>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show auto-dismiss-alert mt-3" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Noticias en un panel superior ancho -->
+    <section class="news-panel-main mb-4">
+      <div class="news-panel-header">
+        <h2>NOTICIAS</h2>
+      </div>
+
+      {% if news_posts %}
+      <div class="news-list">
+        {% for news in news_posts %}
+        <article class="news-card">
+          <div class="news-card-head">
+            <strong>{{ news[1] }}</strong>
+            <span>{{ news[4].strftime('%Y-%m-%d') if news[4] else news[4] }}</span>
+          </div>
+          <p>{{ news[2] }}</p>
+          <div class="news-card-meta">Por {{ news[3] }}</div>
+          {% if user_role == 1 %}
+          <div class="news-card-actions mt-3">
+            <a href="{{ url_for('editar_post_admin', slug=juego[1], post_id=news[0]) }}" class="btn btn-outline-light btn-sm">Editar</a>
+            <form method="post" action="{{ url_for('eliminar_post_admin', slug=juego[1], post_id=news[0]) }}" class="d-inline" onsubmit="return confirm('¿Seguro que quieres eliminar esta noticia?');">
+              <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
+            </form>
+          </div>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="news-empty">
+        <p>Aún no hay noticias en este foro.</p>
+      </div>
+      {% endif %}
+
+      {% if user_role == 1 %}
+      <div class="admin-news-compact mt-3">
+        <h3 class="mb-3">Publicar noticia</h3>
+        <form method="post" class="admin-news-form">
+          <input type="hidden" name="post_type" value="news">
+          <div class="input-row">
+            <input type="text" name="titulo" class="form-control" placeholder="Título de la noticia" required>
+          </div>
+          <div class="input-row">
+            <textarea name="contenido" class="form-control" rows="3" placeholder="Contenido de la noticia" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-sm btn-secondary">Publicar noticia</button>
+        </form>
+      </div>
+      {% endif %}
+    </section>
+
+    <div class="chat-layout">
+      <div class="chat-composer">
+        {% if edit_mode and editing_post %}
+        <h3 class="mb-3">Editar publicación</h3>
+        <form method="post" action="{{ url_for('editar_post_admin', slug=juego[1], post_id=editing_post[0]) }}">
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" name="titulo" class="form-control" value="{{ editing_post[1] }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Contenido</label>
+            <textarea name="contenido" class="form-control" rows="4" required>{{ editing_post[2] }}</textarea>
+          </div>
+          <button type="submit" class="btn-actualizar">Guardar cambios</button>
+          <a href="{{ url_for('foro_juego', slug=juego[1]) }}" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+        {% else %}
+        <h3 class="mb-3">Crear publicación</h3>
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" name="titulo" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Contenido</label>
+            <textarea name="contenido" class="form-control" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn-actualizar">Publicar</button>
+        </form>
+        {% endif %}
+      </div>
+
+      <div class="chat-thread">
+        <h3 class="mb-3">Conversación</h3>
+        {% if posts %}
+          {% for post in posts %}
+            <div class="chat-message">
+              <div class="chat-message-head">
+                <strong>{{ post[3] }}</strong>
+                <span>{{ post[4] }}</span>
+              </div>
+              <div class="chat-message-title">{{ post[1] }}</div>
+              <div class="chat-message-body">{{ post[2] }}</div>
+              <div class="chat-message-actions">
+                <form method="post" action="{{ url_for('like_post', slug=juego[1], post_id=post[0]) }}" class="like-form">
+                  <button type="submit" class="like-btn" {% if user_like_counts.get(post[0], 0) >= 1 %}disabled title="Ya diste tu like"{% endif %}>❤ {{ post[5] or 0 }}</button>
+                </form>
+                {% if user_role == 1 %}
+                <div class="mt-2 d-flex gap-2 flex-wrap">
+                  <a href="{{ url_for('editar_post_admin', slug=juego[1], post_id=post[0]) }}" class="btn btn-outline-light btn-sm">Editar</a>
+                  <form method="post" action="{{ url_for('eliminar_post_admin', slug=juego[1], post_id=post[0]) }}" onsubmit="return confirm('¿Seguro que quieres eliminar esta publicación?');">
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                  </form>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="chat-empty">Aún no hay publicaciones en este foro.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include 'footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

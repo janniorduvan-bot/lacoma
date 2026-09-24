@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <title>LA COMA 🎮</title>
+
+</head>
+<body class="index-page">
+{% include 'navbar.html' %}
+
+<section class="hero-futurista">
+  <div class="hero-carousel" aria-hidden="true">
+    <img src="{{ url_for('static', filename='IMG/banner_games.png') }}" alt="">
+    <img src="{{ url_for('static', filename='IMG/banner_games.png') }}" alt="">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="{{ url_for('static', filename='IMG/coma2.png') }}" class="hero-logo rounded-image hero-logo-index" alt="LA COMA">
+
+    <h1 class="hero-frase">
+      MIENTRAS OTROS DUDAN, TU ELIGES CON CONFIANZA.
+    </h1>
+
+    <p class="hero-descripcion">
+      Somos una plataforma diseñada para quienes no juegan por jugar.
+      Analizamos tus gustos y te guiamos hacia experiencias que realmente valen la pena.
+      Aquí no hay opciones al azar… solo decisiones inteligentes.
+    </p>
+
+  </div>
+</section>
+
+<div class="content-wrapper">
+<section class="banner-games-section">
+  <div class="banner-games-container">
+    <img src="{{ url_for('static', filename='IMG/banner_games.png') }}" alt="Banner Games" class="banner-games-image">
+  </div>
+</section>
+  <div class="section-heading">
+    <h2>Juegos principales para entrar al foro</h2>
+    <p>Elige uno de estos títulos y participa en la comunidad.</p>
+  </div>
+  <div class="featured-games-grid">
+    {% for juego in juegos_destacados %}
+    <a href="{{ url_for('foro_juego', slug=juego[1]) }}" class="featured-game-card" aria-label="Entrar al foro de {{ juego[2] }}">
+      <img src="{{ url_for('static', filename=juego[4]) }}" alt="{{ juego[2] }}">
+      <span class="featured-game-title">{{ juego[2] }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="features-grid">
+  <div class="feature-card">
+    <h3>Recomendaciones inteligentes</h3>
+    <p>Descubre experiencias alineadas con tus gustos y estilo de juego.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Experiencia premium</h3>
+    <p>Una interfaz dinámica, moderna y orientada a la inmersión.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Comunidad activa</h3>
+    <p>Participa en foros y comparte tu opinión con otros jugadores.</p>
+  </div>
+</section>
+
+<section class="marcas-asociadas">
+  <h2>Marcas asociadas</h2>
+  <div class="marcas-grid">
+    {% for i in range(1, 15) %}
+    <div class="marca-item">
+      <img src="{{ url_for('static', filename='IMG/marca' ~ i ~ '.png') }}" alt="Marca {{ i }}">
+    </div>
+    {% endfor %}
+  </div>
+</section>
+</div>
+
+{% include 'footer.html' %}
+
+{% if show_welcome_guide %}
+<div class="modal fade welcome-guide-modal" id="welcomeGuideModal" tabindex="-1" aria-labelledby="welcomeGuideTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content welcome-guide">
+      <div class="welcome-guide-header">
+        <span class="welcome-guide-kicker">TU PRÓXIMA PARTIDA EMPIEZA AQUÍ</span>
+        <h2 id="welcomeGuideTitle">Bienvenido a LA COMA</h2>
+        <p>Un espacio para descubrir juegos, conectar con comunidades y convertir tu pasión en recompensas.</p>
+      </div>
+      <div class="welcome-guide-steps">
+        <a class="welcome-guide-step" href="{{ url_for('juegos') }}">
+          <span class="welcome-guide-number">01</span>
+          <span class="welcome-guide-icon">✦</span>
+          <span><strong>Explora juegos</strong><small>Encuentra tu próxima experiencia y descubre nuevos juegos favoritos.</small></span>
+        </a>
+        <a class="welcome-guide-step" href="{{ url_for('foros') }}">
+          <span class="welcome-guide-number">02</span>
+          <span class="welcome-guide-icon">◌</span>
+          <span><strong>Comparte con las comunidades</strong><small>Entra a los foros, escribe comentarios y gana puntos.</small></span>
+        </a>
+        <a class="welcome-guide-step" href="{{ url_for('cartas') }}">
+          <span class="welcome-guide-number">03</span>
+          <span class="welcome-guide-icon">◆</span>
+          <span><strong>Visita tu álbum</strong><small>Reclama recompensas y completa tu colección de cartas. El álbum está en el botón flotante “ÁLBUM”.</small></span>
+        </a>
+      </div>
+      <div class="welcome-guide-footer">
+        <span>Tu participación desbloquea nuevas posibilidades.</span>
+        <button type="button" class="btn welcome-guide-cta" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const guide = document.getElementById('welcomeGuideModal');
+    if (guide && window.bootstrap) {
+      new bootstrap.Modal(guide).show();
+    }
+  });
+</script>
+{% endif %}
+

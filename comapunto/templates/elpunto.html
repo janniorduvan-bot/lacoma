@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <title>LA COMA 🎮</title>
+
+</head>
+<body class="elpunto-page">
+{% include 'navbar.html' %}
+
+<main class="elpunto-main">
+  <section class="hero-futurista">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="{{ url_for('static', filename='IMG/punto.png') }}" class="hero-logo hero-logo-index" alt="EL PUNTO">
+
+      <h1 class="hero-frase">
+        ¡DISEÑAMOS WEBS CON ALMA!
+      </h1>
+
+      <p class="hero-descripcion">
+        En el punto desarrollamos software con la mentalidad de cumplir y superar las expectativas de nuestros clientes. Completamos los proyectos con la mejor calidad posible.
+      </p>
+
+      <div class="hero-actions">
+        <a href="{{ url_for('juegos') }}" class="btn-hero-primary">Explorar juegos</a>
+        <a href="{{ url_for('index') }}" class="btn-hero-secondary">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-wrapper">
+  <!-- SECCIÓN DE CALIDAD -->
+  <section class="quality-section">
+    <div class="quality-header">
+      <h2>Calidad de LA COMA</h2>
+      <p>Rendimiento real por cada área de servicio.</p>
+    </div>
+
+    <div class="quality-grid">
+      <div class="quality-card">
+        <div class="quality-metric">
+          <span class="quality-title">Estabilidad</span>
+          <span class="quality-value">95%</span>
+        </div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-metric">
+          <span class="quality-title">Velocidad</span>
+          <span class="quality-value">89%</span>
+        </div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-metric">
+          <span class="quality-title">Diseño</span>
+          <span class="quality-value">92%</span>
+        </div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-metric">
+          <span class="quality-title">Soporte</span>
+          <span class="quality-value">88%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quality-note">
+      <p>Cada bloque representa la consistencia de nuestra entrega y la transparencia en la calidad de nuestros desarrollos.</p>
+    </div>
+  </section>
+
+  <div class="project-showcase card">
+    <div class="project-text">
+      <h2>Nuestro proyecto: LA Coma</h2>
+      <p>Un concepto digital diseñado para la nueva era gamer. Interfaz creativa, experiencia inmersiva y una imagen corporativa fuerte, lista para destacarse en el futuro.</p>
+      <div class="project-highlights">
+        <span>Innovación</span>
+        <span>Futuro</span>
+        <span>Gaming</span>
+      </div>
+    </div>
+    <div class="project-image-container">
+      <img src="{{ url_for('static', filename='IMG/coma2.png') }}" alt="LA Coma" class="project-image rounded-image">
+    </div>
+  </div>
+
+  <!-- TABLA -->
+  <h2 class="hero-frase"> NUESTRO EQUIPO DE PROFESIONALES</h2>
+  <div class="tabla-container">
+    <table>
+    <thead>
+      <tr>
+        <th>Admin</th>
+        <th>Nombre</th>
+        <th>Rol</th>
+        <th>Contacto</th>
+        
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+        <td> Brayan Ramirez</td>
+        <td>Programador</td>
+        <td>bamban.sena2009@gmail.com</td>
+      </tr>
+
+      <tr>
+        <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+        <td> Guerrero Castillo</td>
+        <td>Programador</td>
+        <td>valeriaguerrero0410@gmail.com</td>
+      </tr>
+
+      <tr>
+        <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+        <td>Abril Garcia</td>
+        <td>Programador</td>
+        <td>abrileo0765@gmail.com</td>
+      </tr>
+
+      <tr>
+        <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+        <td> Jannior Duvan Castañena </td>
+        <td>Programador</td>
+        <td>janniorduvan@gmail.com </td>
+      </tr>
+
+      <tr>
+        <td><img src="{{ url_for('static', filename='IMG/admin.png') }}"></td>
+        <td> Sebastian Salazar </td>
+        <td>Programador</td>
+        <td>tintanegra516@gmail.com  </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<section class="mision-vision">
+  <h2>COMO EMPRESA</h2>
+
+  <div class="contenedor-mv">
+    
+    <div class="card mv">
+      <h3>Misión</h3>
+      <p>
+        Crear experiencias digitales innovadoras enfocadas en la industria del gaming, 
+        combinando tecnología, creatividad e interactividad para ofrecer plataformas 
+        web únicas que conecten con cada usuario.
+      </p>
+    </div>
+
+    <div class="card mv">
+      <h3>Visión</h3>
+      <p>
+        Ser una empresa líder en el desarrollo de soluciones digitales para videojuegos, 
+        reconocida por su innovación, calidad y capacidad de transformar ideas en 
+        experiencias memorables dentro del mundo digital.
+      </p>
+    </div>
+
+  </div>
+</section>
+  </div>
+
+
+
+
+
+
+
+
+
+
+</main>
+</body>
+
+{% include 'footer.html' %}
+  

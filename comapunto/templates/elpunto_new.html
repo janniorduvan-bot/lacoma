@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <title>LA COMA 🎮</title>
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<section class="elpunto-hero">
+  <div class="elpunto-hero-content">
+    <img src="{{ url_for('static', filename='IMG/punto.png') }}" class="hero-logo hero-logo-punto" alt="EL PUNTO">
+
+    <h1 class="hero-frase mt-4">
+      ¡DISEÑAMOS WEBS CON ALMA DE VIDEOJUEGO!
+    </h1>
+
+    <p class="hero-descripcion mt-3">
+      En el punto. nosotros desarrollamos software con la mentalidad cumplir Y superar las espectativas de nuestros clientes. completando el proyecto con la mejor calidad posible.
+    </p>
+  </div>
+</section>
+
+<section class="team-section">
+  <h2>NUESTRO EQUIPO</h2>
+  <div class="table-responsive table-futurista">
+    <table>
+      <thead>
+        <tr>
+          <th>Admin</th>
+          <th>Nombre</th>
+          <th>Rol</th>
+          <th>Contacto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+          <td>Brayan Ramirez</td>
+          <td>Programador</td>
+          <td>bamban.sena2009@gmail.com</td>
+        </tr>
+        <tr>
+          <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+          <td>Guerrero Castillo</td>
+          <td>Programador</td>
+          <td>valeriaguerrero0410@gmail.com</td>
+        </tr>
+        <tr>
+          <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+          <td>Abril Garcia</td>
+          <td>Programador</td>
+          <td>abrileo0765@gmail.com</td>
+        </tr>
+        <tr>
+          <td><img src="{{ url_for('static', filename='IMG/admin.png') }}" width="40"></td>
+          <td>Jannior Duvan Castañena</td>
+          <td>Programador</td>
+          <td>janniorduvan@gmail.com</td>
+        </tr>
+        <tr>
+          <td><img src="{{ url_for('static', filename='IMG/admin.png') }}"></td>
+          <td>Sebastian Salazar</td>
+          <td>Programador</td>
+          <td>tintanegra516@gmail.com</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="mision-vision">
+  <h2>COMO EMPRESA</h2>
+  <div class="contenedor-mv">
+    <div class="card mv">
+      <h3>Misión</h3>
+      <p>
+        Crear experiencias digitales innovadoras enfocadas en la industria del gaming,
+        combinando tecnología, creatividad e interactividad para ofrecer plataformas
+        web únicas que conecten con cada usuario.
+      </p>
+    </div>
+
+    <div class="card mv">
+      <h3>Visión</h3>
+      <p>
+        Ser una empresa líder en el desarrollo de soluciones digitales para videojuegos,
+        reconocida por su innovación, calidad y capacidad de transformar ideas en
+        experiencias memorables dentro del mundo digital.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include 'footer.html' %}
+</body>
+</html>

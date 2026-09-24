@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <title>Mi Perfil - LA COMA 🎮</title>
+
+</head>
+<body class="console-profile-page">
+{% include 'navbar.html' %}
+
+<section class="page-surface">
+  <div class="console-profile-shell">
+    <div class="console-grip console-grip-left" aria-hidden="true"></div>
+    <div class="console-screen">
+      <div class="console-display" aria-label="Pantalla decorativa de consola">
+        <span class="console-display-title">LA COMA</span>
+        <div class="console-user-info">
+          <div><span>USUARIO</span><strong>{{ usuario[1] if usuario else '---' }}</strong></div>
+          <div><span>NOMBRE</span><strong>{{ usuario[2] if usuario else '---' }}</strong></div>
+          <div><span>GMAIL</span><strong>{{ usuario[3] if usuario else '---' }}</strong></div>
+          <div><span>PUNTOS</span><strong>{{ usuario[4] if usuario else '0' }}</strong></div>
+        </div>
+        <div class="profile-actions">
+          <details class="notifications-panel">
+            <summary>Notificaciones{% if notificaciones_no_leidas %} <span>{{ notificaciones_no_leidas }}</span>{% endif %}</summary>
+            <div class="notifications-list">
+              {% if notificaciones %}
+                {% for notificacion in notificaciones %}
+                  <article class="notification-item{% if notificacion.leida %} is-read{% endif %}">
+                    <strong>{{ notificacion.administrador }}</strong>
+                    <p>{{ notificacion.mensaje }}</p>
+                    <time>{{ notificacion.fecha.strftime('%d/%m/%Y %H:%M') if notificacion.fecha else '' }}</time>
+                    <form method="post" action="{{ url_for('eliminar_notificacion', notificacion_id=notificacion.id) }}">
+                      <button type="submit" class="notification-read-button">Leído</button>
+                    </form>
+                  </article>
+                {% endfor %}
+              {% else %}
+                <p class="notifications-empty">No tienes notificaciones.</p>
+              {% endif %}
+            </div>
+          </details>
+          <details class="password-update">
+            <summary>Actualizar contraseña</summary>
+            <form method="POST" action="{{ url_for('cambiar_contrasena') }}">
+              <input type="password" name="current_password" placeholder="Contraseña actual" required>
+              <input type="password" name="new_password" placeholder="Nueva contraseña" required>
+              <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
+              <button type="submit">Guardar contraseña</button>
+            </form>
+          </details>
+          <a class="logout-button" href="{{ url_for('logout') }}">Cerrar sesión</a>
+        </div>
+        <div class="console-display-ground"></div>
+        <span class="console-display-status">PLAYER {{ usuario[1] if usuario else '---' }} <b>READY</b></span>
+      </div>
+    </div>
+    <div class="console-grip console-grip-right" aria-hidden="true"></div>
+  </div>
+
+  <div class="container py-4">
+    <h2 class="profile-title text-center">Recompensas pendientes</h2>
+    {% if recompensas_reclamadas %}
+      <div class="table-responsive">
+        <table class="table table-dark table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Recompensa</th>
+              <th>Solicitud</th>
+              <th>Número de amigo</th>
+              <th>Estado</th>
+              {% if es_admin and not es_perfil_propio %}<th>Gestión</th>{% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for recompensa in recompensas_reclamadas %}
+              <tr>
+                <td>{{ recompensa.titulo }}</td>
+                <td>{{ recompensa.fecha.strftime('%d/%m/%Y %H:%M') if recompensa.fecha else 'N/A' }}</td>
+                <td>{{ recompensa.numero_amigo or 'N/A' }}</td>
+                <td>
+                  {% if recompensa.estado == 'recibida' %}
+                    <span class="badge bg-success">Recibida</span>
+                    {% if es_perfil_propio %}
+                      <form action="{{ url_for('confirmar_recompensa_recibida', recompensa_id=recompensa.id) }}" method="post" class="mt-2">
+                        <button class="btn btn-sm btn-outline-light" type="submit">Aceptar</button>
+                      </form>
+                    {% endif %}
+                  {% else %}
+                    <span class="badge bg-warning text-dark">Pendiente</span>
+                  {% endif %}
+                </td>
+                {% if es_admin and not es_perfil_propio %}
+                  <td>
+                    <a class="btn btn-sm btn-secondary" href="{{ url_for('editar_recompensa_solicitada', recompensa_id=recompensa.id) }}">Editar</a>
+                    <form action="{{ url_for('eliminar_recompensa_solicitada', recompensa_id=recompensa.id) }}" method="post" style="display:inline" onsubmit="return confirm('¿Eliminar esta solicitud?');">
+                      <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+                    </form>
+                    {% if recompensa.estado != 'recibida' %}
+                      <form action="{{ url_for('marcar_recompensa_recibida', recompensa_id=recompensa.id) }}" method="post" style="display:inline">
+                        <button class="btn btn-sm btn-success" type="submit">Recibido</button>
+                      </form>
+                    {% endif %}
+                  </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="text-center text-white">No tienes recompensas solicitadas.</p>
+    {% endif %}
+  </div>
+</section>
+{% include 'footer.html' %}
+</body>
+</html>

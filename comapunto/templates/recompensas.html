@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="{{ url_for('static', filename='JS/app.js') }}"></script>
+  <title>Recompensas - LA COMA</title>
+</head>
+<body>
+  {% include 'navbar.html' %}
+
+  <section class="page-surface">
+    <div class="container-fluid container-lg py-3 py-md-5">
+      <div class="text-center mb-4">
+        <h2 class="profile-title">Recompensas</h2>
+        <p class="recompensa-subtitle">Consulta las recompensas disponibles y crea nuevas si eres administrador.</p>
+      </div>
+
+      <div class="text-center mb-4">
+        <a href="{{ url_for('cartas') }}" class="btn btn-outline-warning">Volver a mi colección</a>
+      </div>
+
+      {% if is_admin %}
+      <div class="card recompensa-container p-3 p-md-4 mb-4">
+        <h3 class="profile-title text-center mb-3" style="font-size: 1.5rem;">Crear recompensa</h3>
+        <form action="{{ url_for('crear_recompensa_post') }}" method="post">
+          <div class="mb-3">
+            <input name="titulo" class="form-control" placeholder="Título de la recompensa" required>
+          </div>
+          <div class="mb-3">
+            <textarea name="contenido" class="form-control" rows="4" placeholder="Descripción / instrucciones" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="tipoCliente" class="form-label">Tipo de cliente:</label>
+            <select name="tipo_cliente" id="tipoCliente" class="form-select" required>
+              <option value="ambos">Para todos</option>
+              <option value="premium">Solo miembros premium</option>
+              <option value="normal">Solo usuarios normales</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Cartas necesarias por juego:</label>
+            <div class="card-requirements-picker" data-card-requirements>
+              {% for game_name in card_game_names %}
+              <label class="card-requirement-row">
+                <span>{{ game_name }}</span>
+                <input type="number" min="0" max="500" value="0" data-game="{{ game_name }}">
+              </label>
+              {% endfor %}
+            </div>
+            <input type="hidden" name="requisitos_cartas" data-requirements-output>
+            <label for="precioCartas" class="form-label mt-3">Total de cartas necesarias:</label>
+            <input type="number" name="precio_cartas" id="precioCartas" class="form-control" min="1" max="500" value="0" readonly required data-requirements-total>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="destacada" id="recompensaDestacada" value="1">
+            <label class="form-check-label" for="recompensaDestacada">Marcar como recompensa destacada</label>
+          </div>
+          <div class="text-end">
+            <button class="btn btn-warning">Publicar recompensa</button>
+          </div>
+        </form>
+      </div>
+      {% endif %}
+
+      <div class="card recompensa-container p-3">
+        <div class="recompensa-list">
+          {% if recompensa_posts %}
+            {% for post in recompensa_posts %}
+              <div class="recompensa-card">
+                <div class="recompensa-card-inner">
+                  {% if post.destacada %}<span class="recompensa-destacada-badge">Destacada</span>{% endif %}
+                  <h5 class="recompensa-title">{{ post.titulo }}</h5>
+                  <div class="recompensa-body">{{ post.contenido }}</div>
+                  {% if post.requisitos_lista %}
+                  <div class="recompensa-requisitos">
+                    <strong>Requisitos:</strong>
+                    <ul>
+                      {% for requisito in post.requisitos_lista %}
+                      <li><span>{{ requisito.juego }}</span><strong>{{ requisito.cantidad }} carta{% if requisito.cantidad != 1 %}s{% endif %}</strong></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
+                  <div class="recompensa-meta">
+                    Publicado por {{ post.usuario }} · {{ post.fecha_creacion }}
+                    {% if post.precio_cartas > 0 %}
+                      <span style="margin-left: 10px; background: #f59e0b; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">🎴 {{ post.precio_cartas }} cartas</span>
+                    {% endif %}
+                    {% if post.tipo_cliente == 'premium' %}
+                      <span style="margin-left: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">⭐ Premium</span>
+                    {% elif post.tipo_cliente == 'normal' %}
+                      <span style="margin-left: 10px; background: #6c757d; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Solo usuarios normales</span>
+                    {% else %}
+                      <span style="margin-left: 10px; background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.85em;">Para todos</span>
+                    {% endif %}
+                  </div>
+
+                  <div class="recompensa-actions">
+                    {% if session.get('user_role') == 1 %}
+                      <a href="{{ url_for('editar_recompensa_post', post_id=post.id) }}" class="btn btn-sm btn-secondary">Editar</a>
+                      <form action="{{ url_for('eliminar_recompensa_post', post_id=post.id) }}" method="post" onsubmit="return confirm('Eliminar este comentario?');" style="display:inline">
+                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                      </form>
+                      {% if post.claimed %}
+                        <button class="btn btn-sm btn-outline-success" disabled>Obtenida</button>
+                      {% else %}
+                        <button class="btn btn-sm btn-warning" onclick="abrirModalRecompensa({{ post.id }})">Obtener</button>
+                      {% endif %}
+                    {% else %}
+                      {% if post.claimed %}
+                        <button class="btn btn-sm btn-outline-success" disabled>Obtenida</button>
+                      {% else %}
+                        <button class="btn btn-sm btn-warning" onclick="abrirModalRecompensa({{ post.id }})">Obtener</button>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-muted text-center">No hay recompensas disponibles.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="modalRecompensa" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Reclamar Recompensa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="formRecompensa" method="post">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="usernameInput" class="form-label">Nombre de usuario:</label>
+              <input type="text" class="form-control" id="usernameInput" name="username" placeholder="Tu nombre de usuario" required>
+            </div>
+            <div class="mb-3">
+              <label for="comentarioInput" class="form-label">Comentario o nota (opcional):</label>
+              <textarea class="form-control" id="comentarioInput" name="comentario" placeholder="Escribe cualquier cosa que desees..." rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="numeroAmigoInput" class="form-label">Número de amigo:</label>
+              <input type="text" class="form-control" id="numeroAmigoInput" name="numero_amigo" placeholder="Ej: 123456789" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-warning">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function abrirModalRecompensa(postId) {
+      const modal = new bootstrap.Modal(document.getElementById('modalRecompensa'));
+      const form = document.getElementById('formRecompensa');
+      const usernameInput = document.getElementById('usernameInput');
+      const comentarioInput = document.getElementById('comentarioInput');
+      const numeroAmigoInput = document.getElementById('numeroAmigoInput');
+
+      usernameInput.value = '';
+      comentarioInput.value = '';
+      numeroAmigoInput.value = '';
+      usernameInput.focus();
+
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        form.action = '/recompensa_semanal/' + postId + '/obtener';
+        form.submit();
+      };
+
+      modal.show();
+    }
+  </script>
+
+  {% include 'footer.html' %}
+</body>
+</html>

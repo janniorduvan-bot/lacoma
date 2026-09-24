@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Juegos - LA COMA 🎮</title>
+</head>
+<body class="games-site">
+{% include 'navbar.html' %}
+
+<section class="games-page">
+  <div class="tetris-background" aria-hidden="true">
+    <div class="tetris-piece piece-t"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t piece-t-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l piece-l-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z piece-z-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o piece-o-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i piece-i-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j piece-j-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t piece-t-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l piece-l-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z piece-z-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o piece-o-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i piece-i-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j piece-j-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t piece-t-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o piece-o-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l piece-l-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z piece-z-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i piece-i-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t piece-t-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o piece-o-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j piece-j-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l piece-l-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z piece-z-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i piece-i-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t piece-t-6"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o piece-o-6"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-fast piece-fast-1"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-fast piece-fast-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t speed-fast piece-fast-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-normal piece-normal-1"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-normal piece-normal-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-normal piece-normal-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-slow piece-slow-1"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-slow piece-slow-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-slow piece-slow-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-fast piece-fast-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-fast piece-fast-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-normal piece-normal-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-normal piece-normal-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t speed-normal piece-normal-6"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-slow piece-slow-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-slow piece-slow-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-slow piece-slow-6"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t speed-fast tone-bright piece-extra-1"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-fast tone-dim piece-extra-2"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-fast tone-mid piece-extra-3"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-normal tone-dim piece-extra-4"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-normal tone-bright piece-extra-5"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-normal tone-mid piece-extra-6"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-slow tone-bright piece-extra-7"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t speed-slow tone-dim piece-extra-8"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-slow tone-mid piece-extra-9"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-fast tone-dim piece-extra-10"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-normal tone-mid piece-extra-11"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-slow tone-bright piece-extra-12"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-fast tone-mid piece-extra-13"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t speed-fast tone-dim piece-extra-14"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-normal tone-bright piece-extra-15"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-normal tone-dim piece-extra-16"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-normal tone-mid piece-extra-17"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-slow tone-bright piece-extra-18"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-t speed-slow tone-dim piece-extra-19"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-l speed-slow tone-mid piece-extra-20"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-o speed-fast tone-dim piece-extra-21"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-z speed-normal tone-bright piece-extra-22"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-j speed-slow tone-dim piece-extra-23"><i></i><i></i><i></i><i></i></div>
+    <div class="tetris-piece piece-i speed-fast tone-mid piece-extra-24"><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="container py-5">
+    <h1 class="games-title">JUEGOS</h1>
+
+      <form class="search-bar form-inline mb-4" method="get" action="{{ url_for('juegos') }}">
+        <div class="search-group">
+          <input type="text" name="q" class="form-control search-input" placeholder="Busca un juego..." value="{{ search_query or '' }}" autocomplete="off">
+          <div class="search-suggestions" id="search-suggestions"></div>
+          <button type="submit" class="btn btn-primary search-button">Buscar</button>
+        </div>
+        <input type="hidden" name="plataforma" value="{{ plataforma }}">
+        <input type="hidden" name="sort" value="{{ sort_order }}">
+        <input type="hidden" name="genero" value="{{ genero }}">
+      </form>
+
+      <div class="filter-buttons mb-4">
+        <a href="{{ url_for('juegos', q=search_query or None) }}" class="filter-button {% if not plataforma and not sort_order %}active{% endif %}">Todos</a>
+        <a href="{{ url_for('juegos', plataforma='pc', q=search_query or None) }}" class="filter-button {% if plataforma == 'pc' %}active{% endif %}">PC</a>
+        <a href="{{ url_for('juegos', plataforma='movil', q=search_query or None) }}" class="filter-button {% if plataforma == 'movil' %}active{% endif %}">Móvil</a>
+        <a href="{{ url_for('juegos', plataforma=plataforma or None, q=search_query or None, sort='destacado') }}" class="filter-button {% if sort_order == 'destacado' %}active{% endif %}">Destacado</a>
+      </div>
+      <form class="filter-group mb-4" method="get" action="{{ url_for('juegos') }}">
+        <input type="hidden" name="q" value="{{ search_query }}">
+        <input type="hidden" name="plataforma" value="{{ plataforma }}">
+        <input type="hidden" name="sort" value="{{ sort_order }}">
+        <label class="filter-label" for="genreFilter">Género</label>
+        <select id="genreFilter" name="genero" class="filter-select" onchange="this.form.submit()">
+          <option value="">Todos los géneros</option>
+          {% for codigo, nombre_genero in generos %}
+          <option value="{{ codigo }}" {% if genero == codigo %}selected{% endif %}>{{ nombre_genero }}</option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+
+    {% if user_role == 1 %}
+    <div class="mb-4 text-center">
+      <a href="{{ url_for('crear_juego_admin') }}" class="btn btn-game">Crear nuevo foro</a>
+    </div>
+    {% endif %}
+
+    <div class="games-grid">
+      {% for juego in juegos %}
+      <article class="game-card game-card-clickable" data-forum-url="{{ url_for('foro_juego', slug=juego.slug) }}" tabindex="0" aria-label="Entrar al foro de {{ juego.nombre }}">
+        <img src="{{ url_for('static', filename=juego.imagen) }}" alt="{{ juego.nombre }}">
+        <div class="game-card-body">
+          <h3>{{ juego.nombre }}</h3>
+          <p>{{ juego.descripcion }}</p>
+          <div class="game-card-meta">
+            <span>{{ juego.comment_count }} comentarios</span>
+            {% if sort_order == 'destacado' %}
+            <span class="highlighted-label">Más destacado</span>
+            {% endif %}
+          </div>
+          {% if user_role == 1 %}
+          <div class="button-group mt-auto">
+            <div class="card-admin-actions card-admin-actions-inline">
+              <a href="{{ url_for('editar_juego_admin', juego_id=juego.id) }}" class="btn btn-outline-light btn-full">Editar</a>
+              <form method="post" action="{{ url_for('eliminar_juego_admin', juego_id=juego.id) }}" class="button-form" onsubmit="return confirm('¿Seguro que quieres eliminar este foro?');">
+                <button type="submit" class="btn btn-outline-danger btn-full">Eliminar</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if is_plus %}
+  <section class="minijuego-buscaminas">
+    <div class="minijuego-card">
+      <div class="minijuego-header">
+        <h2>Minijuego: Buscaminas</h2>
+        <p>Haz clic en las celdas y descubre todas las zonas sin bombas.</p>
+      </div>
+      <div class="buscaminas-difficulty">
+        <button type="button" class="difficulty-button active" data-difficulty="facil">Fácil</button>
+        <button type="button" class="difficulty-button" data-difficulty="medio">Medio</button>
+        <button type="button" class="difficulty-button" data-difficulty="dificil">Difícil</button>
+        <button type="button" class="difficulty-button" data-difficulty="extremo">Extremo</button>
+      </div>
+      <div class="buscaminas-info">
+        <button id="reset-buscaminas" class="btn btn-secondary">Reiniciar</button>
+        <span id="buscaminas-status">10 bombas restantes | 36 celdas | 0 banderas</span>
+      </div>
+      <div id="buscaminas-victory" class="buscaminas-victory-message" hidden aria-live="polite">¡GANASTE!</div>
+      <div id="buscaminas-grid" class="buscaminas-grid"></div>
+      <div class="buscaminas-hidden-message" aria-live="polite">
+        El minijuego no está disponible en pantallas muy pequeñas. Amplía tu pantalla o usa un dispositivo con mayor resolución para jugar.
+      </div>
+      <p class="buscaminas-tip">Haz clic izquierdo para descubrir. Si haces clic en una bomba, se termina el juego.</p>
+    </div>
+  </section>
+
+  <section class="minijuego-tetris">
+    <div class="minijuego-tetris-card">
+      <div class="minijuego-tetris-header">
+        <h2>Mini Tetris</h2>
+        <p>Completa líneas y mantén la pila bajo control.</p>
+      </div>
+      <div class="minijuego-tetris-layout">
+        <div class="tetris-board-frame">
+          <div id="tetris-board" class="tetris-board" aria-label="Tablero de Tetris"></div>
+        </div>
+        <div class="tetris-side-panel">
+          <div class="tetris-score-panel">
+            <span class="tetris-label">Puntuación</span>
+            <span id="tetris-score" class="tetris-score">0</span>
+          </div>
+          <div class="tetris-hold-panel">
+            <span class="tetris-label">Ficha guardada</span>
+            <div id="tetris-hold-grid" class="tetris-mini-grid"></div>
+          </div>
+          <div class="tetris-next-panel">
+            <span class="tetris-label">Próximas 4</span>
+            <div id="tetris-next-grid" class="tetris-next-grid"></div>
+          </div>
+          <div class="tetris-controls">
+            <button id="tetris-start" class="tetris-button start">Iniciar</button>
+            <button id="tetris-pause" class="tetris-button pause">Pausar</button>
+          </div>
+          <div class="tetris-message" id="tetris-message">Listo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</section>
+
+{% include 'footer.html' %}
+<script defer src="{{ url_for('static', filename='JS/app.js') }}"></script>
+<script>
+  document.querySelectorAll('.game-card-clickable').forEach(function (card) {
+    function openForum(event) {
+      if (event.target.closest('a, button, form, input, select, textarea')) {
+        return;
+      }
+      window.location.href = card.dataset.forumUrl;
+    }
+
+    card.addEventListener('click', openForum);
+    card.addEventListener('keydown', function (event) {
+      if ((event.key === 'Enter' || event.key === ' ') && event.target === card) {
+        event.preventDefault();
+        window.location.href = card.dataset.forumUrl;
+      }
+    });
+  });
+</script>
+</body>
+</html>

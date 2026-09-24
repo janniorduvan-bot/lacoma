@@ -1,0 +1,261 @@
+<!-- NAVBAR REUTILIZABLE -->
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='IMG/logo_coma2.png') }}" class="navbar-logo" alt="LA COMA logo">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="menu">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('elpunto') }}">EL PUNTO</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('resenas') }}">CONTACTANOS</a>
+        </li>
+
+        {% if session.get('user_id') %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('juegos') }}">DESCUBRIR</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('foros') }}">CHATs</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('membresia') }}">MEMBRESIA</a>
+          </li>
+
+          {% if session.get('user_id') and (session.get('user_role') == 1 or session.get('username')|lower in ['abril','admin','administrador']) %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_reportes') }}">REPORTES</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('usuarios') }}">USUARIOS</a>
+            </li>
+          {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link profile-chip-navbar" href="{{ url_for('perfil') }}" aria-label="Ir al perfil">
+              <span class="profile-chip-icon" aria-hidden="true">👤</span>
+            </a>
+          </li>
+
+          <li class="nav-item logout-item-navbar">
+            <form action="{{ url_for('logout') }}" method="post" class="logout-form-navbar">
+              <button type="submit" class="nav-link logout-chip-navbar">
+                <span class="logout-chip-text">CERRAR SESIÓN</span>
+              </button>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link btn-nav-login" href="{{ url_for('iniciarsesion') }}">INICIAR SESIÓN</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-nav-register" href="{{ url_for('register') }}">REGISTRARSE</a>
+          </li>
+        {% endif %}
+
+        {% if session.get('user_id') %}
+          <li class="nav-item points-badge-item-mobile d-lg-none">
+            <span class="points-badge points-badge-mobile">🟠 {{ user_points }}</span>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    {% if session.get('user_id') %}
+    <div class="d-none d-lg-flex align-items-center ms-auto points-badge-container">
+      <span class="points-badge">🟠 {{ user_points }}</span>
+    </div>
+    {% endif %}
+  </div>
+</nav>
+
+{% if request.endpoint == 'cartas' %}
+<a class="floating-album-button" href="{{ url_for('index') }}" aria-label="Cerrar álbum" onclick="if (window.history.length > 1) { window.history.back(); return false; }">CERRAR</a>
+{% else %}
+<a class="floating-album-button" href="{{ url_for('cartas') }}" aria-label="Ir al álbum">ÁLBUM</a>
+{% endif %}
+
+{% if session.get('user_id') %}
+<div class="global-chat-stack" data-global-chat-stack>
+<aside class="global-chat-panel" data-global-chat hidden aria-label="Chat del juego">
+  <div class="global-chat-header">
+    <strong data-global-chat-title>CHAT</strong>
+    <div class="global-chat-controls">
+      <button type="button" data-global-chat-minimize aria-label="Minimizar chat">−</button>
+      <button type="button" data-global-chat-close aria-label="Cerrar chat">×</button>
+    </div>
+  </div>
+  <div class="global-chat-messages" data-global-chat-messages aria-live="polite"></div>
+  <form class="global-chat-form" data-global-chat-form>
+    <input type="text" name="mensaje" maxlength="500" placeholder="Escribe un mensaje..." autocomplete="off" required>
+    <button type="submit" aria-label="Enviar mensaje">Enviar</button>
+  </form>
+  <p class="global-chat-error" data-global-chat-error role="alert"></p>
+</aside>
+</div>
+<script>
+  (function () {
+    const template = document.querySelector('[data-global-chat]');
+    const stack = document.querySelector('[data-global-chat-stack]');
+    const chats = new Map();
+    const maxDesktopChats = 3;
+
+    function isMobile() {
+      return window.matchMedia('(max-width: 600px)').matches;
+    }
+
+    function saveChats() {
+      window.localStorage.setItem('laComaChats', JSON.stringify(
+        Array.from(chats.values()).map(function (chat) {
+          return { slug: chat.slug, name: chat.name };
+        })
+      ));
+    }
+
+    function closeChat(slug) {
+      const chat = chats.get(slug);
+      if (!chat) return;
+      window.clearInterval(chat.refreshTimer);
+      chat.panel.remove();
+      chats.delete(slug);
+      saveChats();
+    }
+
+    function renderMessages(messages, items) {
+      messages.replaceChildren();
+      if (!items.length) {
+        const empty = document.createElement('span');
+        empty.className = 'global-chat-empty';
+        empty.textContent = 'Todavía no hay mensajes.';
+        messages.appendChild(empty);
+        return;
+      }
+      items.forEach(function (item) {
+        const message = document.createElement('div');
+        message.className = 'global-chat-message';
+        const author = document.createElement('strong');
+        author.textContent = item.usuario;
+        const text = document.createElement('span');
+        text.textContent = item.mensaje;
+        const time = document.createElement('small');
+        time.textContent = item.fecha;
+        message.append(author, text, time);
+        messages.appendChild(message);
+      });
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function setupChat(slug, gameName) {
+      const panel = template.cloneNode(true);
+      const title = panel.querySelector('[data-global-chat-title]');
+      const messages = panel.querySelector('[data-global-chat-messages]');
+      const form = panel.querySelector('[data-global-chat-form]');
+      const error = panel.querySelector('[data-global-chat-error]');
+      const chat = { slug: slug, name: gameName, panel: panel, refreshTimer: null };
+      title.textContent = 'CHAT: ' + gameName;
+      panel.hidden = false;
+      stack.appendChild(panel);
+      chats.set(slug, chat);
+
+      async function loadMessages() {
+      try {
+        const response = await fetch('/api/juegos/' + encodeURIComponent(slug) + '/chat');
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'No se pudo cargar el chat');
+        renderMessages(messages, data.mensajes || []);
+        error.textContent = '';
+      } catch (requestError) {
+        error.textContent = requestError.message;
+      }
+      }
+
+      loadMessages();
+      chat.refreshTimer = window.setInterval(loadMessages, 5000);
+
+      panel.querySelector('[data-global-chat-close]').addEventListener('click', function () {
+        closeChat(slug);
+      });
+
+      panel.querySelector('[data-global-chat-minimize]').addEventListener('click', function () {
+        panel.classList.toggle('is-minimized');
+        const minimized = panel.classList.contains('is-minimized');
+        this.textContent = minimized ? '+' : '−';
+        this.setAttribute('aria-label', minimized ? 'Volver a abrir chat' : 'Minimizar chat');
+      });
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const input = form.elements.mensaje;
+        const mensaje = input.value.trim();
+        if (!mensaje) return;
+        try {
+          const response = await fetch('/api/juegos/' + encodeURIComponent(slug) + '/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mensaje: mensaje })
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'No se pudo enviar el mensaje');
+          input.value = '';
+          await loadMessages();
+        } catch (requestError) {
+          error.textContent = requestError.message;
+        }
+      });
+    }
+
+    window.openGlobalChat = function (slug, gameName) {
+      if (chats.has(slug)) return;
+      if (isMobile()) {
+        Array.from(chats.keys()).forEach(closeChat);
+      } else if (chats.size >= maxDesktopChats) {
+        closeChat(chats.keys().next().value);
+      }
+      setupChat(slug, gameName);
+      saveChats();
+    };
+
+    window.matchMedia('(max-width: 600px)').addEventListener('change', function (event) {
+      if (event.matches && chats.size > 1) {
+        Array.from(chats.keys()).slice(1).forEach(closeChat);
+      }
+    });
+
+    const savedChats = window.localStorage.getItem('laComaChats') || window.localStorage.getItem('laComaChat');
+    if (savedChats) {
+      try {
+        const parsedChats = JSON.parse(savedChats);
+        const chatsToOpen = Array.isArray(parsedChats) ? parsedChats : [parsedChats];
+        chatsToOpen.slice(0, isMobile() ? 1 : maxDesktopChats).forEach(function (chat) {
+          if (chat && chat.slug && chat.name) window.openGlobalChat(chat.slug, chat.name);
+        });
+      } catch (storageError) {
+        window.localStorage.removeItem('laComaChats');
+        window.localStorage.removeItem('laComaChat');
+      }
+    }
+  }());
+</script>
+{% endif %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show auto-dismiss-alert" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar alerta"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}

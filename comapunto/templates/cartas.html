@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="{{ url_for('static', filename='JS/app.js') }}"></script>
+  <title>Colección de Cartas - LA COMA</title>
+</head>
+<body class="cartas-page">
+  {% include 'navbar.html' %}
+
+  <section class="page-surface">
+    <div class="container py-5">
+      {% if featured_rewards %}
+      <section class="featured-rewards-banner" aria-label="Recompensas destacadas">
+        <h2>Recompensas destacadas</h2>
+        <div class="featured-rewards-list">
+          {% for reward in featured_rewards %}
+          <a class="featured-reward-announcement" href="{{ url_for('recompensas') }}">
+            <span class="featured-reward-title">{{ reward.titulo }}</span>
+            <span class="featured-reward-total">{{ reward.total_cartas }} cartas</span>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      <div class="text-center mb-4">
+        <h2 class="profile-title">Mi Colección de Cartas</h2>
+        <p class="album-subtitle">Reclama tus cartas</p>
+        <p class="text-muted">Las primeras 2 cartas son gratis. Después elige una recompensa con tus puntos.</p>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-4">
+        {% if missing_initial %}
+        <button class="btn btn-hero-primary btn-get-cards claim-card-button" data-pack="basica">Obtener tus cartas iniciales gratis</button>
+        {% else %}
+          {% for key, pack in card_packs.items() %}
+          <button class="btn btn-hero-primary btn-get-cards claim-card-button{% if pack.plus_only %} plus-pack{% endif %}" data-pack="{{ key }}"{% if pack.plus_only and not is_plus %} disabled{% endif %}>
+            <span>{{ pack.name }}</span>
+            <small>{% if pack.plus_only and not is_plus %}Solo miembros{% else %}{{ pack.price }} puntos · {{ pack.cards }} cartas{% endif %}</small>
+          </button>
+          {% endfor %}
+        {% endif %}
+
+        <a href="{{ url_for('recompensas') }}" class="btn btn-warning btn-menu-recompensas">Recompensas</a>
+      </div>
+
+      <div class="album-tools" aria-label="Organizar álbum">
+        <label class="album-search-label" for="albumSearch">Buscar juego</label>
+        <input id="albumSearch" class="album-search" type="search" placeholder="Escribe el nombre de un juego..." autocomplete="off">
+      </div>
+
+      <div class="text-center mb-3">
+        <span id="cardMessage" class="text-muted"></span>
+      </div>
+
+      <div class="album-pagination" aria-label="Paginación del álbum">
+        <button type="button" class="album-nav-button" id="previousPage" aria-label="Página anterior">Anterior</button>
+        <span id="pageIndicator">Página 1 de {{ album_pages|length }}</span>
+        <button type="button" class="album-nav-button" id="nextPage" aria-label="Página siguiente">Siguiente</button>
+      </div>
+
+      <div class="album-book" id="albumBook" aria-live="polite">
+        {% for page in album_pages %}
+        <section class="album-page{% if loop.first %} is-active{% endif %}{% if page.is_plus %} plus-page{% endif %}" data-page-name="{{ page.name|lower }}">
+          <div class="album-page-heading">
+            <span class="album-page-kicker">Página {{ loop.index }}</span>
+            <h3>{{ page.name }}</h3>
+          </div>
+          <div class="card-grid{% if page.cards %} show{% endif %}">
+            <div class="card-album">
+              {% for card in page.slots %}
+              <div class="album-card{% if card %} unlocked{% else %} empty-slot{% endif %}{% if page.is_plus %} plus-card{% endif %}" data-card-number="{{ loop.index }}">
+                {% if card %}<img src="{{ card }}" alt="Carta {{ loop.index }} de {{ page.name }}" class="card-image">{% else %}<span class="slot-number">{{ loop.index }}</span><span class="slot-label">Espacio reservado</span>{% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+        {% endfor %}
+      </div>
+
+      <div class="card-pack-animation" id="cardPackAnimation" aria-hidden="true"></div>
+
+      <div class="text-center mt-5">
+        <a href="{{ url_for('perfil') }}" class="btn btn-outline-warning">Volver al perfil</a>
+      </div>
+    </div>
+  </section>
+
+
+  {% include 'footer.html' %}
+</body>
+</html>

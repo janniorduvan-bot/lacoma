@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Membresía Plus - LA COMA</title>
+  <style>
+    .membership-container {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .membership-card {
+      background: linear-gradient(135deg, rgba(31, 63, 70, 0.95), rgba(46, 87, 98, 0.95));
+      color: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+    
+    .membership-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .membership-price {
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .membership-benefits {
+      list-style: none;
+      padding: 20px 0;
+      margin: 30px 0;
+    }
+    
+    .membership-benefits li {
+      padding: 12px 0;
+      font-size: 1.1em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .membership-benefits li:before {
+      content: "✓ ";
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .membership-benefits li:last-child {
+      border-bottom: none;
+    }
+    
+    .btn-membership {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1em;
+      margin-top: 20px;
+      background-color: #ffc107;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .btn-membership:hover {
+      background-color: #e0a800;
+    }
+    
+    .payment-section {
+      margin-top: 40px;
+    }
+    
+    .payment-method {
+      background: white;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+      border-top: 6px solid var(--method-accent, #f4b400);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+    }
+    
+    .payment-method:hover {
+      transform: translateX(5px);
+      border-color: var(--method-accent, #f4b400);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .payment-method-icon {
+      font-size: 2em;
+      margin-right: 15px;
+      background: rgba(0,0,0,0.04);
+      border-radius: 12px;
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--method-accent, #f4b400);
+    }
+    
+    .payment-method-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--method-accent, #f4b400);
+    }
+    
+    .payment-method-description {
+      font-size: 0.9em;
+      color: #666;
+    }
+    
+    .status-plus {
+      background: #28a745;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.2em;
+    }
+    
+    .status-normal {
+      background: #6c757d;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .recompensas-section {
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+    
+    .recompensas-section h4 {
+      font-weight: bold;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #667eea;
+    }
+    
+    .recompensa-item {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      border-left: 4px solid #667eea;
+    }
+    
+    .recompensa-item-title {
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+    
+    .recompensa-item-desc {
+      font-size: 0.95em;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .recompensa-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    
+    .badge-premium {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .badge-normal {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .badge-ambos {
+      background: #28a745;
+      color: white;
+    }
+    
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .tab-button {
+      padding: 10px 20px;
+      border: 2px solid #667eea;
+      background: white;
+      color: #667eea;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .tab-button.active {
+      background: #667eea;
+      color: white;
+    }
+    
+    .tab-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      border: none;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      padding: 10px 15px;
+    }
+
+    .form-control:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .btn-primary {
+      background-color: #667eea;
+      border-color: #667eea;
+    }
+
+    .btn-primary:hover {
+      background-color: #764ba2;
+      border-color: #764ba2;
+    }
+  </style>
+</head>
+<body class="membership-page">
+  {% include 'navbar.html' %}
+
+  <div style="width: 100%;">
+    <!-- Sección de Membresía -->
+    <div class="membership-container">
+      <div class="page-surface" style="width: 100%; display: flex; justify-content: center;">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          {% if is_plus %}
+            <div class="status-plus">
+              ⭐ ¡Eres un usuario PLUS! Ganas el doble de puntos en todas tus actividades.
+              <br><small>Válido hasta: {{ expiration_date }}</small>
+            </div>
+          {% else %}
+            <div class="membership-card">
+              <div class="membership-title">LA COMA PLUS</div>
+              <p style="text-align: center; margin-bottom: 30px; font-size: 1.1em;">
+                Obtén el doble de puntos en todas tus actividades y consigue cartas exclusivas.
+              </p>
+              
+              <div class="membership-price">$14.999</div>
+              
+              <ul class="membership-benefits">
+                <li>Gana 2x más puntos en todas las actividades</li>
+                <li>Puedes obtener cartas exclusivas Plus</li>
+                <li>Acceso prioritario a recompensas</li>
+                <li>Insignia especial de Plus en tu perfil</li>
+                <li>Membresía por 30 días</li>
+              </ul>
+              
+              <button class="btn-membership" onclick="mostrarMetodosPago()">OBTENER PLUS AHORA</button>
+              
+              <div class="payment-section" id="paymentMethods" style="display: none;">
+                <h5 style="text-align: center; margin-bottom: 30px;">Selecciona tu método de pago</h5>
+                {% for metodo in payment_methods %}
+                {% set method_colors = {
+                  'Billetera Digital': '#22c55e',
+                  'Daviplata': '#3b82f6',
+                  'Nequi': '#8b5cf6',
+                  'Pago Contra Entrega': '#f59e0b',
+                  'Mercado Pago': '#14b8a6',
+                  'PayPal': '#2563eb'
+                } %}
+                <div class="payment-method" style="--method-accent: {{ method_colors.get(metodo.nombre, '#f4b400') }};" onclick='seleccionarMetodo({{ metodo.id }}, "{{ metodo.nombre }}")'>
+                  <div style="display: flex; align-items: center;">
+                    <span class="payment-method-icon">{{ metodo.icono }}</span>
+                    <div>
+                      <div class="payment-method-name">{{ metodo.nombre }}</div>
+                      <div class="payment-method-description">{{ metodo.descripcion }}</div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para detalles de pago -->
+  <div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalTitle">Detalles de Pago</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="paymentModalBody">
+          <!-- Contenido se llenará dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+
+  <script>
+    let selectedMethodId = null;
+    let selectedMethodName = null;
+    
+    function mostrarTab(tabName) {
+      // Ocultar todos los tabs
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.style.display = 'none');
+      
+      // Remover clase active de todos los botones
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      
+      // Mostrar el tab seleccionado
+      const selectedTab = document.getElementById(`tab-${tabName}`);
+      if (selectedTab) {
+        selectedTab.style.display = 'block';
+      }
+      
+      // Agregar clase active al botón clickeado
+      event.target.classList.add('active');
+    }
+    
+    function mostrarMetodosPago() {
+      const section = document.getElementById('paymentMethods');
+      section.style.display = 'block';
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function seleccionarMetodo(methodId, methodName) {
+      selectedMethodId = methodId;
+      selectedMethodName = methodName;
+      
+      // Mostrar modal con detalles específicos del método
+      fetch(`/procesar_pago/${methodId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ accion: 'iniciar' })
+      })
+      .then(response => response.text())
+      .then(html => {
+        const paymentBody = document.getElementById('paymentModalBody');
+        paymentBody.innerHTML = html;
+        const paymentGuide = paymentBody.querySelector('.alert');
+        if (paymentGuide) {
+          document.body.appendChild(paymentGuide);
+        }
+        const paymentForm = paymentBody.querySelector('form');
+        if (!paymentForm) {
+          throw new Error('No se encontró el formulario de pago');
+        }
+
+        document.getElementById('paymentModalTitle').textContent = `Pago por ${methodName}`;
+        new bootstrap.Modal(document.getElementById('paymentModal')).show();
+      })
+      .catch(error => {
+        alert('Error al procesar el pago: ' + error);
+      });
+    }
+  </script>
+</body>
+</html>

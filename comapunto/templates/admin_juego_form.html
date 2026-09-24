@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <title>{% if edit %}Editar foro{% else %}Crear foro{% endif %} - LA COMA</title>
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<section class="games-page">
+  <div class="container py-5" style="max-width: 720px;">
+    <h1 class="games-title">{% if edit %}EDITAR FORO{% else %}CREAR FORO{% endif %}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show auto-dismiss-alert mt-3" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" class="chat-composer">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" value="{{ juego[2] if edit else '' }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea name="descripcion" class="form-control" rows="4" required>{{ juego[3] if edit else '' }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Slug</label>
+        <input type="text" name="slug" class="form-control" value="{{ juego[1] if edit else '' }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Imagen</label>
+        <input type="text" name="imagen" class="form-control" value="{{ juego[4] if edit else '' }}" placeholder="IMG/ejemplo.jfif">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Link del trailer de YouTube</label>
+        <input type="url" name="trailer_url" class="form-control" value="{{ juego[7] if edit else '' }}" placeholder="https://www.youtube.com/watch?v=...">
+        <small class="form-text text-muted">Se usará como fondo del foro de este juego.</small>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Plataforma</label>
+        <select name="plataforma" class="form-control">
+          <option value="pc" {% if edit and juego[6] == 'pc' %}selected{% endif %}>PC</option>
+          <option value="movil" {% if edit and juego[6] == 'movil' %}selected{% endif %}>Móvil</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Género</label>
+        <select name="genero" class="form-control" required>
+          <option value="" disabled {% if not edit or not juego[8] %}selected{% endif %}>Selecciona un género</option>
+          {% for codigo, nombre_genero in generos %}
+          <option value="{{ codigo }}" {% if edit and juego[8] == codigo %}selected{% endif %}>{{ nombre_genero }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-game">Guardar</button>
+      <a href="{{ url_for('foros') }}" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+  </div>
+</section>
+
+{% include 'footer.html' %}
+</body>
+</html>

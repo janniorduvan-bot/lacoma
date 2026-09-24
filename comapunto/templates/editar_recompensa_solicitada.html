@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+  <title>Editar solicitud - LA COMA</title>
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <section class="page-surface py-5">
+    <div class="container" style="max-width: 650px;">
+      <h1 class="profile-title text-center mb-4">Editar solicitud de recompensa</h1>
+      <p class="text-center">{{ recompensa[2] }}</p>
+      <form method="post" class="bg-dark p-4 rounded">
+        <label class="form-label" for="numero_amigo">Número de amigo</label>
+        <input class="form-control mb-3" id="numero_amigo" name="numero_amigo" value="{{ recompensa[4] or '' }}" required>
+        <label class="form-label" for="comentario">Comentario</label>
+        <textarea class="form-control mb-3" id="comentario" name="comentario" rows="4">{{ recompensa[3] or '' }}</textarea>
+        <label class="form-label" for="estado">Estado</label>
+        <select class="form-select mb-4" id="estado" name="estado">
+          <option value="pendiente" {% if recompensa[5] != 'recibida' %}selected{% endif %}>Pendiente</option>
+          <option value="recibida" {% if recompensa[5] == 'recibida' %}selected{% endif %}>Recibida</option>
+        </select>
+        <button class="btn btn-warning" type="submit">Guardar cambios</button>
+        <a class="btn btn-secondary" href="{{ url_for('usuarios') }}">Cancelar</a>
+      </form>
+    </div>
+  </section>
+  {% include 'footer.html' %}
+</body>
+</html>

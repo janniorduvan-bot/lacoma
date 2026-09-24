@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <title>LA COMA 🎮</title>
+
+</head>
+<body class="usuarios-page">
+{% include 'navbar.html' %}
+
+<section class="usuarios-section page-surface">
+  <div class="usuarios-container">
+    <h1 class="usuarios-titulo">USUARIOS REGISTRADOS</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show auto-dismiss-alert mt-3" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+    {% if usuarios %}
+      <div class="table-responsive">
+        <table class="table-usuarios data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Ciudad</th>
+              <th>Puntos</th>
+              <th>Fecha de Registro</th>
+              <th>Facturas</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for usuario in usuarios %}
+              <tr>
+                <td>{{ usuario[0] }}</td>
+                <td>{{ usuario[1] }}</td>
+                <td>{{ usuario[2] }}</td>
+                <td>{{ usuario[3] if usuario[3] else 'N/A' }}</td>
+                <td>{{ usuario[5] }}</td>
+                <td>{{ usuario[4].strftime('%d/%m/%Y %H:%M') if usuario[4] else 'N/A' }}</td>
+                <td>
+                  {% for factura in facturas.get(usuario[0], []) %}
+                    <div class="mb-2">
+                      <strong>{{ factura[2] }}</strong><br>
+                      {{ factura[3] }}<br>
+                      ${{ '%.2f'|format(factura[4]) }} - {{ factura[5] }}<br>
+                      <small>{{ factura[7].strftime('%d/%m/%Y %H:%M') if factura[7] else 'N/A' }}</small>
+                    </div>
+                  {% else %}
+                    <span>N/A</span>
+                  {% endfor %}
+                </td>
+                <td>
+                  <form action="{{ url_for('ver_perfil_usuario', user_id=usuario[0]) }}" method="get" style="display:inline;">
+                    <button type="submit" class="btn-actualizar">Recompensas</button>
+                  </form>
+                  <form action="{{ url_for('editar_usuario', id=usuario[0]) }}" method="get" style="display:inline;">
+                    <button type="submit" class="btn-actualizar">Actualizar</button>
+                  </form>
+                  <form action="{{ url_for('eliminar_usuario', id=usuario[0]) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Deseas eliminar este usuario?');">
+                    <button type="submit" class="btn-eliminar">Eliminar</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="sin-usuarios">
+        <p>No hay usuarios registrados aún</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% include 'footer.html' %}
+</body>
+</html>
