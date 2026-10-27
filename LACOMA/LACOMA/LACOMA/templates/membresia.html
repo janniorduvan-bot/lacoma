@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css', v='20261027-site-buttons-13') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Membresía Plus - LA COMA</title>
+  <style>
+    .membership-container {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .membership-card {
+      background: linear-gradient(135deg, rgba(31, 63, 70, 0.95), rgba(46, 87, 98, 0.95));
+      color: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+    
+    .membership-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .membership-price {
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .membership-price-note,
+    .membership-terms-note {
+      text-align: center;
+      font-size: 0.92em;
+    }
+    
+    .membership-benefits {
+      list-style: none;
+      padding: 20px 0;
+      margin: 30px 0;
+    }
+    
+    .membership-benefits li {
+      padding: 12px 0;
+      font-size: 1.1em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .membership-benefits li:before {
+      content: "✓ ";
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .membership-benefits li:last-child {
+      border-bottom: none;
+    }
+    
+    .btn-membership {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1em;
+      margin-top: 20px;
+      background-color: #ffc107;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .btn-membership:hover {
+      background-color: #e0a800;
+    }
+
+    .btn-membership:disabled,
+    .btn-membership:disabled:hover {
+      background-color: #6c757d;
+      color: white;
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+    
+    .payment-section {
+      margin-top: 40px;
+    }
+    
+    .payment-method {
+      background: white;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+      border-top: 6px solid var(--method-accent, #f4b400);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+    }
+    
+    .payment-method:hover {
+      transform: translateX(5px);
+      border-color: var(--method-accent, #f4b400);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .payment-method-icon {
+      font-size: 2em;
+      margin-right: 15px;
+      background: rgba(0,0,0,0.04);
+      border-radius: 12px;
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--method-accent, #f4b400);
+    }
+    
+    .payment-method-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--method-accent, #f4b400);
+    }
+    
+    .payment-method-description {
+      font-size: 0.9em;
+      color: #666;
+    }
+    
+    .status-plus {
+      background: #28a745;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.2em;
+    }
+    
+    .status-normal {
+      background: #6c757d;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .recompensas-section {
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+    
+    .recompensas-section h4 {
+      font-weight: bold;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #667eea;
+    }
+    
+    .recompensa-item {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      border-left: 4px solid #667eea;
+    }
+    
+    .recompensa-item-title {
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+    
+    .recompensa-item-desc {
+      font-size: 0.95em;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .recompensa-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    
+    .badge-premium {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .badge-normal {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .badge-ambos {
+      background: #28a745;
+      color: white;
+    }
+    
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .tab-button {
+      padding: 10px 20px;
+      border: 2px solid #667eea;
+      background: white;
+      color: #667eea;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .tab-button.active {
+      background: #667eea;
+      color: white;
+    }
+    
+    .tab-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      border: none;
+    }
+
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      padding: 10px 15px;
+    }
+
+    .form-control:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .btn-primary {
+      background-color: #667eea;
+      border-color: #667eea;
+    }
+
+    .btn-primary:hover {
+      background-color: #764ba2;
+      border-color: #764ba2;
+    }
+  </style>
+</head>
+<body class="membership-page">
+  {% include 'navbar.html' %}
+
+  <div style="width: 100%;">
+    <!-- Sección de Membresía -->
+    <div class="membership-container">
+      <div class="page-surface" style="width: 100%; display: flex; justify-content: center;">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          {% if is_plus %}
+            <div class="status-plus">
+              ⭐ ¡Eres un usuario PLUS! Ganas el doble de puntos en todas tus actividades.
+              <br><small>Válido hasta: {{ expiration_date }}</small>
+            </div>
+          {% else %}
+            <div class="membership-card">
+              <div class="membership-title">LA COMA PLUS</div>
+              <p style="text-align: center; margin-bottom: 30px; font-size: 1.1em;">
+                Obtén el doble de puntos en las actividades que otorgan puntos y accede a cartas exclusivas.
+              </p>
+              
+              <div class="membership-price">$14.999 COP</div>
+              <p class="membership-price-note">Pago único por 30 días. No se renueva automáticamente.</p>
+              
+              <ul class="membership-benefits">
+                <li>Gana 2x más puntos en las actividades que otorgan puntos</li>
+                <li>Acceso a cartas exclusivas Plus disponibles en la plataforma</li>
+                <li>Insignia Plus en tu perfil mientras la membresía esté activa</li>
+                <li>Vigencia de 30 días desde la activación</li>
+              </ul>
+              
+              {% if not is_authenticated %}
+                <a class="btn-membership" href="{{ url_for('iniciarsesion', next='membresia') }}">Inicia sesión para comprar</a>
+                {% if payment_available %}
+                  <p class="membership-terms-note">Inicia sesión para continuar con la compra. Wompi mostrará los medios de pago habilitados para el comercio.</p>
+                {% else %}
+                  <p class="membership-terms-note">El checkout todavía no está habilitado: el servidor necesita las credenciales del comercio en Wompi. Inicia sesión para continuar cuando esté configurado; no se realizará ningún cobro mientras tanto.</p>
+                {% endif %}
+              {% elif payment_available %}
+                <form action="{{ url_for('procesar_pago', method_id=1) }}" method="post">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="btn-membership" type="submit">Pagar de forma segura con Wompi</button>
+                </form>
+                <p class="membership-terms-note">Wompi te mostrará los medios de pago habilitados para este comercio. Plus se activa únicamente después de confirmar el pago. No ingreses datos de pago en LA COMA. Consulta los <a href="{{ url_for('terminos') }}">Términos y condiciones</a>.</p>
+              {% else %}
+                <button class="btn-membership" type="button" disabled aria-describedby="paymentUnavailable">Compra no disponible</button>
+                <p class="membership-terms-note" id="paymentUnavailable">
+                  El servidor no recibió la configuración de Wompi. Configura
+                  <code>WOMPI_PUBLIC_KEY</code>, <code>WOMPI_PRIVATE_KEY</code>,
+                  <code>WOMPI_INTEGRITY_SECRET</code> y <code>WOMPI_EVENTS_SECRET</code>
+                  en el entorno que inicia Flask y reinicia el proyecto. Después, el botón te llevará al checkout de Wompi, donde aparecen los medios habilitados para tu cuenta.
+                  No compartas las claves ni ingreses datos de pago en LA COMA. Consulta los <a href="{{ url_for('terminos') }}">Términos y condiciones</a>.
+                </p>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+</body>
+</html>

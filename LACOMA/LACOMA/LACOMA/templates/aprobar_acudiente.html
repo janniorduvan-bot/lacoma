@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autorizar cuenta de menor | LA COMA</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css', v='20261027-site-buttons-13') }}">
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <main class="legal-document-content guardian-approval">
+    {% if already_approved %}
+      <h1>Autorización confirmada</h1>
+      <p>Esta autorización ya fue registrada. La persona titular también debe verificar su propio correo antes de iniciar sesión.</p>
+      <a class="btn btn-primary-cta" href="{{ url_for('iniciarsesion') }}">Ir a iniciar sesión</a>
+    {% else %}
+      <h1>Autorización de acudiente</h1>
+      <p>Se solicita autorización para que una persona de 13 a 17 años use LA COMA y para tratar sus datos según la <a href="{{ url_for('privacidad') }}">Política de Privacidad</a> y los <a href="{{ url_for('terminos') }}">Términos y condiciones</a>.</p>
+      <p>Confirma solo si eres su madre, padre o representante legal y has leído esos documentos. Si no reconoces la solicitud, no la confirmes.</p>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-primary-cta" type="submit">Confirmo y autorizo</button>
+      </form>
+    {% endif %}
+  </main>
+  {% include 'footer.html' %}
+</body>
+</html>

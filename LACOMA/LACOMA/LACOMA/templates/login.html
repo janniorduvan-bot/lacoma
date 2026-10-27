@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css', v='20261027-site-buttons-15') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <title>Iniciar Sesión - LA COMA 🎮</title>
+
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<!-- MENSAJES FLASH -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show auto-dismiss-alert" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<section class="registro-section page-surface">
+  <div class="registro-container">
+    <div class="card registro-card">
+      <div class="card-body">
+        <h1 class="registro-titulo">INICIAR SESIÓN</h1>
+
+        <form class="row g-3 registro-form" method="POST" action="{{ url_for('iniciarsesion', next='membresia') if request.args.get('next') == 'membresia' else url_for('iniciarsesion') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="col-12">
+            <label for="inputNombre" class="form-label">Nombre de Usuario o correo</label>
+            <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Tu nombre de Usuario o correo" value="{{ identifier|default('') }}" autocomplete="username" autofocus required>
+          </div>
+          <div class="col-12">
+            <label for="inputPassword4" class="form-label">Contraseña</label>
+            <div class="password-field">
+              <input type="password" class="form-control" id="inputPassword4" name="password" autocomplete="current-password" required>
+              <button type="button" class="password-toggle" data-password-target="inputPassword4" aria-label="Mostrar contraseña" title="Mostrar contraseña">Mostrar</button>
+            </div>
+          </div>
+          <div class="col-12 text-end">
+            <a href="{{ url_for('olvido_contrasena') }}" class="forgot-password-link" style="color: #ffffff !important;">¿Olvidaste tu contraseña?</a>
+          </div>
+          <div class="col-12 registro-actions">
+            <button type="submit" class="btn btn-registro btn-primary-cta">Ingresar</button>
+          </div>
+          <div class="col-12 account-switch">
+            <span>¿No tienes una cuenta?</span>
+            <a href="{{ url_for('register') }}">Regístrate</a>
+          </div>
+        </form>
+        <details class="mt-3">
+          <summary>¿No recibiste el correo de verificación o autorización?</summary>
+          <form method="POST" action="{{ url_for('resend_verification') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="verificationEmail" class="form-label mt-2">Correo de la cuenta pendiente</label>
+            <input type="email" class="form-control" id="verificationEmail" name="email" autocomplete="email" required>
+            <div class="form-text">Solicita un nuevo correo para verificar tu cuenta.</div>
+            <button type="submit" class="btn btn-registro btn-primary-cta mt-2">Reenviar verificación</button>
+          </form>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+    {% include 'footer.html' %}
+    <script>
+      document.querySelectorAll('[data-password-target]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const input = document.getElementById(button.dataset.passwordTarget);
+          const visible = input.type === 'text';
+          input.type = visible ? 'password' : 'text';
+          button.setAttribute('aria-label', visible ? 'Mostrar contraseña' : 'Ocultar contraseña');
+          button.setAttribute('title', visible ? 'Mostrar contraseña' : 'Ocultar contraseña');
+          button.textContent = visible ? 'Mostrar' : 'Ocultar';
+        });
+      });
+    </script>
+    </body>
+    </html>

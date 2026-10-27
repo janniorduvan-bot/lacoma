@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Términos y condiciones | LA COMA</title>
+  <meta name="description" content="Términos de uso de LA COMA: cuentas, edad mínima, membresía, contenido y reglas de la comunidad.">
+  <link rel="canonical" href="{{ seo_base_url }}{{ url_for('terminos') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css', v='20261027-legal-layout-16') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="{{ url_for('static', filename='JS/performance-metrics.js', v='20261015-analytics-2') }}"></script>
+</head>
+<body class="legal-document">
+  {% include 'navbar.html' %}
+  <main class="legal-document-intro">
+    <h1>Términos y condiciones</h1>
+    <p>Lee las reglas de uso de LA COMA. La fecha de vigencia de esta versión es el {{ legal_document_effective_date }}.</p>
+    <a class="legal-document-read" href="#terms-title">Leer los términos</a>
+  </main>
+  {% include 'footer.html' %}
+</body>
+</html>

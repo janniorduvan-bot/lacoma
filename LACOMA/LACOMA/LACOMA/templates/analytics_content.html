@@ -1,0 +1,114 @@
+<section class="mb-5" aria-labelledby="analytics-heading">
+  <h2 id="analytics-heading">Analítica de usuarios y rendimiento</h2>
+  <p>Resumen de cuentas registradas y datos agregados de uso de los últimos 30 días. Las visitas y métricas de rendimiento no guardan cookies, IP ni identificadores de visitantes.</p>
+
+  <section class="mb-5" aria-labelledby="users-heading">
+    <h3 id="users-heading">Estadísticas de usuarios</h3>
+    <p>Las altas por día cuentan cuentas nuevas según su fecha de creación; no representan inicios de sesión ni usuarios activos ese día. Las cuentas administradoras no se incluyen.</p>
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 bg-dark text-light border-secondary"><div class="card-body">
+          <h4 class="h6 card-title">Usuarios registrados</h4>
+          <p class="display-6 mb-0">{{ account_stats.total_users }}</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 bg-dark text-light border-secondary"><div class="card-body">
+          <h4 class="h6 card-title">Nuevos hoy</h4>
+          <p class="display-6 mb-0">{{ account_stats.users_today }}</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 bg-dark text-light border-secondary"><div class="card-body">
+          <h4 class="h6 card-title">Nuevos en los últimos 7 días</h4>
+          <p class="display-6 mb-0">{{ account_stats.users_last_7_days }}</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 bg-dark text-light border-secondary"><div class="card-body">
+          <h4 class="h6 card-title">Nuevos en los últimos 30 días</h4>
+          <p class="display-6 mb-0">{{ account_stats.users_last_30_days }}</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 bg-dark text-light border-secondary"><div class="card-body">
+          <h4 class="h6 card-title">Correo verificado</h4>
+          <p class="display-6 mb-0">{{ account_stats.verified_users }}</p>
+        </div></div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 bg-dark text-light border-secondary"><div class="card-body">
+          <h4 class="h6 card-title">Pendientes de verificar correo</h4>
+          <p class="display-6 mb-0">{{ account_stats.pending_verification }}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <h4 class="h5">Nuevas cuentas por día</h4>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped align-middle">
+        <thead><tr><th>Fecha</th><th>Registros</th><th>Volumen relativo</th></tr></thead>
+        <tbody>
+          {% for row in daily_registrations %}
+          <tr>
+            <td>{{ row.label }}</td>
+            <td>{{ row.count }}</td>
+            <td><div class="progress bg-secondary" role="img" aria-label="{{ row.count }} nuevos usuarios">
+              <div class="progress-bar bg-info" style="width: {{ row.width }}%"></div>
+            </div></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mb-5" aria-labelledby="page-views-heading">
+    <h3 id="page-views-heading">Visitas por sección</h3>
+    {% if page_views %}
+    <div class="table-responsive">
+      <table class="table table-dark table-striped">
+        <thead><tr><th>Sección</th><th>Vistas</th></tr></thead>
+        <tbody>
+          {% for row in page_views %}
+          <tr><td>{{ page_labels.get(row[0], row[0]) }}</td><td>{{ row[1] }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>Aún no hay datos. Las primeras mediciones aparecerán cuando haya visitas a las páginas públicas.</p>
+    {% endif %}
+  </section>
+
+  <section aria-labelledby="performance-heading">
+    <h3 id="performance-heading">Métricas de carga</h3>
+    <p>El P75 es una aproximación local por intervalos; no equivale al informe de campo de CrUX/Search Console. Pocas muestras pueden variar mucho.</p>
+    {% if metrics %}
+    <div class="table-responsive">
+      <table class="table table-dark table-striped">
+        <thead><tr><th>Sección</th><th>Métrica</th><th>Muestras</th><th>Promedio</th><th>P75 aprox.</th><th>Estado P75</th><th>Mínimo</th><th>Máximo</th></tr></thead>
+        <tbody>
+          {% for row in metrics %}
+            {% set threshold = metric_thresholds[row[1]] %}
+            {% set p75_status = 'Sin datos' if row[6] is none else ('Bueno' if row[6] <= threshold[0] else ('Necesita mejora' if row[6] <= threshold[1] else 'Deficiente')) %}
+            <tr>
+              <td>{{ page_labels.get(row[0], row[0]) }}</td>
+              <td>{{ metric_labels.get(row[1], row[1]) }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ '%.4f'|format(row[3]) }}{% if row[1] != 'cls' %} ms{% endif %}</td>
+              <td>{% if row[6] is none %}—{% else %}{{ '%.4f'|format(row[6]) }}{% if row[1] != 'cls' %} ms{% endif %}{% endif %}</td>
+              <td>{{ p75_status }}</td>
+              <td>{{ '%.4f'|format(row[4]) }}{% if row[1] != 'cls' %} ms{% endif %}</td>
+              <td>{{ '%.4f'|format(row[5]) }}{% if row[1] != 'cls' %} ms{% endif %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>Aún no hay mediciones de rendimiento.</p>
+    {% endif %}
+    <p class="mt-3"><strong>Objetivos de referencia P75:</strong> LCP ≤ 2,5 s; INP ≤ 200 ms; CLS ≤ 0,1. TTFB y FCP son diagnósticos complementarios.</p>
+  </section>
+</section>

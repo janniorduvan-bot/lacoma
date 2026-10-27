@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidad | LA COMA</title>
+  <meta name="description" content="Conoce qué datos usa LA COMA para gestionar cuentas, proteger a menores y medir el rendimiento del sitio.">
+  <link rel="canonical" href="{{ seo_base_url }}{{ url_for('privacidad') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/estilo.css', v='20261027-site-buttons-13') }}">
+  <script defer src="{{ url_for('static', filename='JS/performance-metrics.js', v='20261015-analytics-2') }}"></script>
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <main class="legal-document-content">
+    <h1>Política de privacidad y tratamiento de datos personales</h1>
+    <p class="legal-document-date">Vigente desde el {{ legal_document_effective_date }}</p>
+    <p>Esta política explica el tratamiento de datos personales en LA COMA, proyecto administrado por EL PUNTO. Debe leerse junto con los <a href="{{ url_for('terminos') }}">Términos y condiciones</a>.</p>
+
+    <h2>Responsable y contacto</h2>
+    <p>Canal de contacto para consultas, solicitudes sobre datos personales, corrección o eliminación: <a href="mailto:abrileo0765@gmail.com">abrileo0765@gmail.com</a>. La identidad jurídica y el domicilio del responsable deben completarse y validarse antes de afirmar que esta política satisface todos los requisitos legales.</p>
+
+    <h2>Datos que podemos tratar</h2>
+    <ul>
+      <li>Para crear y administrar una cuenta: nombre, correo electrónico, nombre de usuario y, si se proporciona, ciudad.</li>
+      <li>Fecha de nacimiento, para comprobar que la persona cumple la edad mínima de 13 años. El correo electrónico del titular debe verificarse.</li>
+      <li>Los registros creados mediante versiones anteriores pueden conservar el correo del acudiente y la constancia de autorización que se solicitaron en ese momento; el formulario actual no pide esos datos.</li>
+      <li>Contraseña almacenada como hash, nunca como texto legible por la aplicación.</li>
+      <li>Contenido que el usuario decide publicar en espacios públicos de LA COMA, además de datos técnicos necesarios para mantener la sesión y procesar las acciones solicitadas.</li>
+      <li>Para limitar intentos fallidos de inicio de sesión, una huella HMAC del identificador de cuenta o del dato ingresado y el registro de los intentos fallidos recientes; este control no guarda contraseñas ni direcciones IP.</li>
+      <li>Para restablecer contraseñas, un hash del token temporal enviado por correo; el token vence en una hora y no se almacena en texto legible por la aplicación.</li>
+      <li>Registros de visitas y rendimiento agregados por día y sección, y estadísticas agregadas de cuentas (como altas por fecha de creación y estado de verificación), visibles solo para administradores. La analítica de visitas y rendimiento no almacena IP, identificadores de usuario ni cookies de seguimiento, y las estadísticas de cuentas no crean un historial individual de actividad.</li>
+    </ul>
+
+    <h2>Finalidades</h2>
+    <p>Usamos estos datos para crear y proteger cuentas, comprobar la edad mínima, verificar correos, habilitar las funciones solicitadas, moderar contenido, atender solicitudes, limitar intentos automatizados de acceso y permitir el restablecimiento solicitado de contraseñas. Las estadísticas agregadas de cuentas ayudan a conocer el crecimiento general del servicio; las mediciones de visitas y rendimiento ayudan a entender el uso general y mejorar el rendimiento. No se usan para crear perfiles individuales de navegación.</p>
+
+    <h2>Menores de edad</h2>
+    <p>No se permite crear cuentas a menores de 13 años. El registro solicita la fecha de nacimiento para aplicar este límite y no solicita correo de madre, padre o acudiente. Toda persona registrada debe verificar el correo electrónico de su propia cuenta. Los datos de acudiente recopilados para cuentas creadas mediante versiones anteriores se tratan conforme a los plazos de conservación descritos en esta política.</p>
+
+    <h2>Cookies y almacenamiento técnico</h2>
+    <p>La aplicación usa una cookie técnica de sesión para mantener el inicio de sesión y proteger formularios. No se usa esa cookie para seguimiento publicitario. La medición propia de rendimiento y visitas descrita arriba no utiliza cookies ni identificadores de visitantes.</p>
+
+    <h2>Proveedores y divulgación</h2>
+    <p>Los correos de verificación se envían mediante el servicio de correo configurado para LA COMA. Algunos recursos técnicos del sitio pueden ser servidos por proveedores externos. Los datos podrán comunicarse cuando sea necesario para operar el servicio, cumplir la ley o responder a una autoridad competente. LA COMA no vende datos personales.</p>
+
+    <h2>Conservación y seguridad</h2>
+    <p>Los datos de cuenta se conservan mientras la cuenta permanezca activa y durante el tiempo adicional necesario para atender solicitudes, resolver incidentes o cumplir obligaciones legales. Los registros de intentos fallidos se eliminan al superar 30 días; los enlaces de restablecimiento vencen en una hora y sus registros vencidos se depuran al procesar solicitudes posteriores de recuperación. No se fija aquí un plazo uniforme para los demás datos porque depende del tipo de dato y de las obligaciones aplicables. Se aplican medidas técnicas y organizativas razonables; ningún servicio conectado a Internet puede garantizar seguridad absoluta.</p>
+
+    <h2>Derechos y solicitudes</h2>
+    <p>El titular, o su representante cuando corresponda, puede solicitar consulta, actualización, rectificación o eliminación de sus datos, revocar una autorización cuando proceda y presentar consultas o reclamos mediante <a href="mailto:abrileo0765@gmail.com">abrileo0765@gmail.com</a>. Incluye el correo asociado a la cuenta y describe la solicitud; no envíes contraseñas ni datos financieros. La respuesta se tramitará dentro de los plazos legales aplicables.</p>
+
+    <h2>Cambios</h2>
+    <p>Publicaremos aquí la versión vigente y su fecha. Si un cambio requiere una nueva autorización, se solicitará antes del tratamiento correspondiente.</p>
+
+    <p class="legal-review-note">Este documento es informativo y no constituye asesoría legal ni garantía de cumplimiento. Debe revisarlo un abogado colombiano, especialmente en lo relativo a datos de menores, identificación del responsable, conservación, proveedores y mecanismos para ejercer derechos.</p>
+  </main>
+  {% include 'footer.html' %}
+</body>
+</html>

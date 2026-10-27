@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="white" stop-opacity="0"/>
+      <stop offset=".28" stop-color="white" stop-opacity=".12"/>
+      <stop offset=".58" stop-color="white" stop-opacity=".68"/>
+      <stop offset="1" stop-color="white"/>
+    </linearGradient>
+    <linearGradient id="sunset" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#403c82"/>
+      <stop offset=".52" stop-color="#e77c73"/>
+      <stop offset="1" stop-color="#f4aa67"/>
+    </linearGradient>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#061329"/>
+      <stop offset="1" stop-color="#123a59"/>
+    </linearGradient>
+    <linearGradient id="city-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#101d45"/>
+      <stop offset="1" stop-color="#713f77"/>
+    </linearGradient>
+    <mask id="scene-fade">
+      <rect width="1440" height="600" fill="url(#fade)"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#scene-fade)">
+    <g opacity="1" shape-rendering="crispEdges">
+      <animate attributeName="opacity" values="1;1;0;0;0;0;1" keyTimes="0;.2564;.3333;.5897;.6667;.9231;1" dur="39s" repeatCount="indefinite"/>
+      <rect width="1440" height="600" fill="url(#sunset)"/>
+      <rect x="0" y="306" width="1440" height="294" fill="#102d4b"/>
+      <rect x="0" y="306" width="1440" height="14" fill="#f7b06d" opacity=".8"/>
+      <rect x="1052" y="142" width="112" height="14" fill="#ffe5a0"/>
+      <rect x="1024" y="156" width="168" height="14" fill="#ffe5a0"/>
+      <rect x="1010" y="170" width="196" height="84" fill="#ffe5a0"/>
+      <rect x="1024" y="254" width="168" height="14" fill="#ffe5a0"/>
+      <rect x="1052" y="268" width="112" height="14" fill="#ffe5a0"/>
+      <rect x="0" y="282" width="158" height="14" fill="#665487"/>
+      <rect x="126" y="268" width="84" height="14" fill="#665487"/>
+      <rect x="1340" y="278" width="100" height="14" fill="#765583"/>
+      <rect x="1282" y="292" width="158" height="14" fill="#765583"/>
+      <path d="M0 406h140v-14h84v14h112v-14h70v14h98v-14h126v14h110v-14h72v14h118v-14h92v14h142v-14h138v14h18v194H0z" fill="#123b59"/>
+      <path d="M0 486h112v-14h70v14h128v-14h84v14h146v-14h70v14h170v-14h112v14h152v-14h98v14h154v-14h144v14v114H0z" fill="#0a243e"/>
+      <g fill="#f5b06d" opacity=".7">
+        <rect x="970" y="340" width="84" height="8"/><rect x="1090" y="358" width="132" height="8"/>
+        <rect x="1004" y="380" width="54" height="8"/><rect x="1136" y="398" width="102" height="8"/>
+        <rect x="1064" y="424" width="144" height="8"/><rect x="992" y="452" width="76" height="8"/>
+        <rect x="1110" y="474" width="124" height="8"/>
+      </g>
+      <g transform="translate(0 0)">
+        <animateTransform attributeName="transform" type="translate" values="-48 0;48 0;-48 0" dur="24s" repeatCount="indefinite"/>
+        <path d="M548 372h252v14h-28v14H576v-14h-28z" fill="#061a2b"/>
+        <path d="M568 358h204v14H568z" fill="#143650"/>
+        <rect x="610" y="288" width="12" height="70" fill="#e8d8c4"/>
+        <path d="M622 294h112v8H622zm0 16h90v8h-90zm0 16h70v8h-70z" fill="#f5d5a7"/>
+        <path d="M602 344h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v-12h12v186H602z" fill="#e9b788" opacity=".84"/>
+        <rect x="574" y="376" width="222" height="6" fill="#e4a779"/>
+      </g>
+      <g fill="#fff0c4">
+        <rect x="174" y="222" width="8" height="8"/><rect x="390" y="176" width="7" height="7"/>
+        <rect x="844" y="218" width="8" height="8"/><rect x="1262" y="188" width="7" height="7"/>
+      </g>
+      <g transform="translate(0 0)" fill="#142c50">
+        <animateTransform attributeName="transform" type="translate" values="-120 0;1560 22" dur="8s" repeatCount="indefinite"/>
+        <path d="M0 204h14l12-10 3 1-5 9h14l8 5H23l-7 8-3-1 3-7H0z"/>
+      </g>
+      <g fill="#122c57">
+        <path d="M180 256h12v-12h12v-12h12v12h12v12h12v-12h12v12h-24v12h-24v-12z"/>
+        <path d="M860 236h10v-10h10v-10h10v10h10v10h10v-10h10v10h-20v10h-20v-10z"/>
+        <animateTransform attributeName="transform" type="translate" values="-144 0;160 8" dur="20s" repeatCount="indefinite"/>
+      </g>
+    </g>
+
+    <g opacity="0" shape-rendering="crispEdges">
+      <animate attributeName="opacity" values="0;0;1;1;0;0;0" keyTimes="0;.2564;.3333;.5897;.6667;.9231;1" dur="39s" repeatCount="indefinite"/>
+      <rect width="1440" height="600" fill="url(#night)"/>
+      <rect y="312" width="1440" height="288" fill="#071d35"/>
+      <rect x="1072" y="106" width="72" height="12" fill="#d7f1eb"/>
+      <rect x="1048" y="118" width="120" height="12" fill="#d7f1eb"/>
+      <rect x="1036" y="130" width="144" height="72" fill="#d7f1eb"/>
+      <rect x="1048" y="202" width="120" height="12" fill="#d7f1eb"/>
+      <rect x="1072" y="214" width="72" height="12" fill="#d7f1eb"/>
+      <path d="M1110 106h34v12h24v12h12v72h-12v12h-24v12h-34v-12h12v-12h12v-72h-12v-12h-12z" fill="#98cfcf"/>
+      <g fill="#e7fff1">
+        <rect x="124" y="148" width="8" height="8"/><rect x="260" y="220" width="6" height="6"/>
+        <rect x="402" y="132" width="7" height="7"/><rect x="530" y="250" width="8" height="8"/>
+        <rect x="734" y="170" width="7" height="7"/><rect x="884" y="230" width="6" height="6"/>
+        <rect x="1262" y="166" width="8" height="8"/><rect x="1370" y="250" width="7" height="7"/>
+        <rect x="190" y="294" width="6" height="6"/><rect x="958" y="126" width="6" height="6"/>
+        <rect x="1190" y="288" width="7" height="7"/>
+      </g>
+      <g fill="#e7fff1">
+        <rect x="76" y="198" width="6" height="6"><animate attributeName="opacity" values=".22;1;.4;.85;.22" dur="2.8s" repeatCount="indefinite"/></rect>
+        <rect x="326" y="104" width="7" height="7"><animate attributeName="opacity" values="1;.3;.75;.2;1" dur="3.6s" repeatCount="indefinite"/></rect>
+        <rect x="604" y="216" width="6" height="6"><animate attributeName="opacity" values=".25;.9;.35;1;.25" dur="3.1s" repeatCount="indefinite"/></rect>
+        <rect x="786" y="116" width="8" height="8"><animate attributeName="opacity" values="1;.25;.8;.4;1" dur="4.2s" repeatCount="indefinite"/></rect>
+        <rect x="1014" y="246" width="6" height="6"><animate attributeName="opacity" values=".3;1;.4;.85;.3" dur="3.3s" repeatCount="indefinite"/></rect>
+        <rect x="1308" y="112" width="7" height="7"><animate attributeName="opacity" values="1;.35;.7;.2;1" dur="3.8s" repeatCount="indefinite"/></rect>
+        <rect x="144" y="282" width="7" height="7"><animate attributeName="opacity" values=".2;1;.5;.8;.2" dur="4.4s" repeatCount="indefinite"/></rect>
+        <rect x="694" y="276" width="6" height="6"><animate attributeName="opacity" values="1;.25;.8;.35;1" dur="2.6s" repeatCount="indefinite"/></rect>
+        <rect x="1172" y="220" width="8" height="8"><animate attributeName="opacity" values=".3;1;.4;.9;.3" dur="3.9s" repeatCount="indefinite"/></rect>
+      </g>
+      <g transform="translate(0 0)" opacity="0">
+        <animateTransform attributeName="transform" type="translate" values="350 92;350 92;870 260;870 260" keyTimes="0;.36;.43;1" dur="39s" begin="0s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.36;.38;.41;.44;1" dur="39s" begin="0s" repeatCount="indefinite"/>
+        <path d="M0 0h88" fill="none" stroke="#fff4c8" stroke-width="4"/>
+        <path d="M8 3h60" fill="none" stroke="#9fdcff" stroke-width="2"/>
+      </g>
+      <g fill="#c6f6f0">
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;12 0;0 0;-8 0;0 0" dur="7s" repeatCount="indefinite"/><rect x="1080" y="326" width="72" height="6" opacity=".62"/><rect x="1100" y="334" width="42" height="4" opacity=".35"/></g>
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;-16 0;0 0;10 0;0 0" dur="8s" repeatCount="indefinite"/><rect x="1052" y="354" width="116" height="7" opacity=".78"/><rect x="1074" y="364" width="62" height="4" opacity=".42"/></g>
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;18 0;0 0;-12 0;0 0" dur="9s" repeatCount="indefinite"/><rect x="1034" y="386" width="142" height="7" opacity=".72"/><rect x="1060" y="396" width="82" height="4" opacity=".4"/></g>
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;-12 0;0 0;16 0;0 0" dur="7.5s" repeatCount="indefinite"/><rect x="1016" y="420" width="168" height="8" opacity=".68"/><rect x="1050" y="431" width="94" height="4" opacity=".38"/></g>
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;14 0;0 0;-18 0;0 0" dur="8.5s" repeatCount="indefinite"/><rect x="1000" y="454" width="184" height="8" opacity=".62"/><rect x="1038" y="465" width="76" height="4" opacity=".34"/></g>
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;-18 0;0 0;12 0;0 0" dur="9.5s" repeatCount="indefinite"/><rect x="1016" y="488" width="176" height="8" opacity=".58"/><rect x="1052" y="500" width="112" height="4" opacity=".3"/></g>
+        <g><animateTransform attributeName="transform" type="translate" values="0 0;10 0;0 0;-14 0;0 0" dur="8s" repeatCount="indefinite"/><rect x="1042" y="522" width="146" height="7" opacity=".52"/></g>
+      </g>
+      <path d="M0 426h100v-14h70v14h118v-14h80v14h122v-14h90v14h136v-14h92v14h118v-14h84v14h124v-14h96v14h206v174H0z" fill="#0b2d49"/>
+      <g fill="#102c4a">
+        <path d="M0 382h60v-24h36v-48h24v48h48v24h-24v12H0z"/>
+        <path d="M1320 390h48v-24h24v-36h24v36h24v24h-24v12h-96z"/>
+      </g>
+      <g transform="translate(0 0)">
+        <animateTransform attributeName="transform" type="translate" values="0 0;-18 0;0 0" dur="8s" repeatCount="indefinite"/>
+        <path d="M0 548h1440v52H0z" fill="#12334e"/>
+        <g fill="#1a5870">
+          <rect x="0" y="540" width="120" height="6"/><rect x="154" y="560" width="92" height="6"/>
+          <rect x="292" y="536" width="132" height="6"/><rect x="468" y="570" width="108" height="6"/>
+          <rect x="636" y="542" width="138" height="6"/><rect x="830" y="566" width="114" height="6"/>
+          <rect x="1002" y="538" width="130" height="6"/><rect x="1190" y="566" width="142" height="6"/>
+        </g>
+      </g>
+    </g>
+
+    <g opacity="0" shape-rendering="crispEdges">
+      <animate attributeName="opacity" values="0;0;0;0;1;1;0" keyTimes="0;.2564;.3333;.5897;.6667;.9231;1" dur="39s" repeatCount="indefinite"/>
+      <rect width="1440" height="600" fill="url(#city-sky)"/>
+      <rect y="368" width="1440" height="232" fill="#111b38"/>
+      <g fill="#0b1226">
+        <path d="M0 500V354h42v-28h54v42h30v132z"/>
+        <path d="M92 500V326h34v-44h48v30h28v188z"/>
+        <path d="M286 500V358h46v-72h32v38h38v176z"/>
+        <path d="M568 500V336h34v-62h58v34h34v192z"/>
+        <path d="M814 500V352h48v-90h38v42h42v196z"/>
+        <path d="M1024 500V330h38v-54h58v34h32v190z"/>
+        <path d="M1240 500V354h46v-72h34v36h42v182z"/>
+      </g>
+      <g fill="#1d2c55">
+        <path d="M40 600V294h72v28h24v-56h80v334z" fill="#30466f"/>
+        <path d="M224 600V340h96v-72h64v32h40v300z" fill="#26395f"/>
+        <path d="M444 600V286h78v-42h48v84h82v272z" fill="#344a73"/>
+        <path d="M684 600V324h90v-96h62v42h54v330z" fill="#26395f"/>
+        <path d="M906 600V270h80v46h40v-72h70v356z" fill="#30466f"/>
+        <path d="M1100 600V342h90v-88h56v54h70v292z" fill="#26395f"/>
+        <path d="M1300 600V304h80v42h60v254z" fill="#344a73"/>
+      </g>
+      <g fill="#405681">
+        <path d="M58 600V310h28v290z"/><path d="M244 600V356h28v244z"/>
+        <path d="M466 600V302h26v298z"/><path d="M708 600V340h28v260z"/>
+        <path d="M930 600V286h28v314z"/><path d="M1124 600V358h28v242z"/>
+        <path d="M1324 600V322h28v278z"/>
+      </g>
+      <g fill="#ffc66e">
+        <rect x="126" y="330" width="10" height="16"/><rect x="160" y="330" width="10" height="16"/><rect x="194" y="330" width="10" height="16"/>
+        <rect x="242" y="366" width="12" height="16"/><rect x="278" y="366" width="12" height="16"/>
+        <rect x="342" y="306" width="12" height="16"/><rect x="382" y="306" width="12" height="16"/>
+        <rect x="464" y="330" width="12" height="16"/><rect x="506" y="330" width="12" height="16"/>
+        <rect x="552" y="280" width="12" height="16"/><rect x="596" y="280" width="12" height="16"/>
+        <rect x="710" y="370" width="12" height="16"/><rect x="750" y="370" width="12" height="16"/>
+        <rect x="802" y="292" width="12" height="16"/><rect x="842" y="292" width="12" height="16"/>
+        <rect x="932" y="310" width="12" height="16"/><rect x="972" y="310" width="12" height="16"/>
+        <rect x="1042" y="280" width="12" height="16"/><rect x="1080" y="280" width="12" height="16"/>
+        <rect x="1128" y="378" width="12" height="16"/><rect x="1168" y="378" width="12" height="16"/>
+        <rect x="1220" y="292" width="12" height="16"/><rect x="1260" y="292" width="12" height="16"/>
+        <animate attributeName="opacity" values=".45;1;.55;.9;.45" dur="3s" repeatCount="indefinite"/>
+      </g>
+      <g fill="#45d8e7">
+        <rect x="108" y="374" width="10" height="14"/><rect x="306" y="410" width="10" height="14"/>
+        <rect x="530" y="366" width="10" height="14"/><rect x="768" y="398" width="10" height="14"/>
+        <rect x="1000" y="370" width="10" height="14"/><rect x="1364" y="402" width="10" height="14"/>
+      </g>
+      <g transform="translate(0 0)" opacity="0">
+        <animateTransform attributeName="transform" type="translate" values="-120 0;1560 58" dur="28s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.18;.21;.56;.59;1" dur="28s" repeatCount="indefinite"/>
+        <path d="M0 126h24l11-8 5 1-5 7h18l10 5H34l-9 7-4-1 4-6H0z" fill="#bfe8f1"/>
+        <rect x="8" y="122" width="12" height="2" fill="#f7d58b"/>
+      </g>
+      <g opacity="0">
+        <animate attributeName="opacity" values="0;0;1;0;0;0" keyTimes="0;.34;.36;.4;.43;1" dur="24s" repeatCount="indefinite"/>
+        <path d="M1180 132l-18 40h14l-22 48 44-56h-15l18-32z" fill="#c7d8ff" opacity=".8"/>
+        <path d="M1180 132l-18 40h14l-22 48 44-56h-15l18-32z" fill="none" stroke="#929eff" stroke-width="4" opacity=".5"/>
+      </g>
+      <rect y="500" width="1440" height="100" fill="#101a2b"/>
+      <rect y="500" width="1440" height="8" fill="#40516a"/>
+      <rect y="514" width="1440" height="3" fill="#ecae71" opacity=".8"/>
+      <g fill="#e3c58f" opacity=".8">
+        <rect x="40" y="548" width="96" height="8"/><rect x="218" y="548" width="96" height="8"/>
+        <rect x="396" y="548" width="96" height="8"/><rect x="574" y="548" width="96" height="8"/>
+        <rect x="752" y="548" width="96" height="8"/><rect x="930" y="548" width="96" height="8"/>
+        <rect x="1108" y="548" width="96" height="8"/><rect x="1286" y="548" width="96" height="8"/>
+      </g>
+      <rect y="586" width="1440" height="14" fill="#1b2940"/>
+      <g transform="translate(0 0)">
+        <animateTransform attributeName="transform" type="translate" values="-180 0;1620 0" dur="18s" repeatCount="indefinite"/>
+        <path d="M88 532h18v-12h24v-14h50v14h24v12h16v20H88z" fill="#e97072"/>
+        <rect x="126" y="512" width="44" height="4" fill="#ffc66e"/>
+        <rect x="134" y="508" width="26" height="4" fill="#80cddd"/>
+        <rect x="92" y="536" width="8" height="6" fill="#ffe7ab"/>
+        <rect x="210" y="536" width="8" height="6" fill="#fff0c4"/>
+        <rect x="106" y="546" width="22" height="8" fill="#080f25"/>
+        <rect x="178" y="546" width="22" height="8" fill="#080f25"/>
+        <rect x="112" y="548" width="10" height="4" fill="#7893a4"/>
+        <rect x="184" y="548" width="10" height="4" fill="#7893a4"/>
+      </g>
+    </g>
+  </g>
+</svg>
